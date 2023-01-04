@@ -5,12 +5,13 @@ if (isset($_POST['signup'])) {
   $email = $_POST['emailid'];
   $mobile = $_POST['mobileno'];
   $password = $_POST['password'];
+  $pass = password_hash($password,PASSWORD_DEFAULT);
   $sql = "INSERT INTO  tblusers(FullName,EmailId,ContactNo,Password) VALUES(:fname,:email,:mobile,:password)";
   $query = $dbh->prepare($sql);
   $query->bindParam(':fname', $fname, PDO::PARAM_STR);
   $query->bindParam(':email', $email, PDO::PARAM_STR);
   $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
-  $query->bindParam(':password', $password, PDO::PARAM_STR);
+  $query->bindParam(':password', $pass, PDO::PARAM_STR);
   $query->execute();
   $lastInsertId = $dbh->lastInsertId();
   if ($lastInsertId) {

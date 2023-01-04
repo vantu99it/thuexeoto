@@ -30,6 +30,7 @@ error_reporting(0);
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicon-icon/apple-touch-icon-72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-icon/apple-touch-icon-57-precomposed.png">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
@@ -46,18 +47,9 @@ error_reporting(0);
 
   <!-- Banners -->
   <section id="banner" class="banner-section">
-    <div class="container">
-      <div class="div_zindex">
-        <div class="row">
-          <div class="col-md-5 col-md-push-7">
-            <div class="banner_content">
-              <h1>&nbsp;</h1>
-              <p>&nbsp; </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <img src="./assets/images/slider2.jpg" alt="" class="slider-home">
+    <img src="./assets/images/slider3.jpg" alt="" class="slider-home">
+    <img src="./assets/images/slider4.jpg" alt="" class="slider-home">
   </section>
   <!-- /Banners -->
 
@@ -165,7 +157,25 @@ error_reporting(0);
   <script src="assets/js/owl.carousel.min.js"></script>
 
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#banner').slick({
+      loop: true,
+      infinite: true,
+      speed: 300,
+      autoplay: true,
+      autoplaySpeed: 1800,
+      slidesToShow: 1,
+      adaptiveHeight: true,
+      prevArrow: `<button type='button' class='slick-prev pull-left slick-arrow' ><i class="fa-solid fa-chevron-left"></i></button>`,
+      nextArrow: `<button type='button' class='slick-next pull-right slick-arrow'><i class="fa-solid fa-chevron-right"></i></button>`,
+    });
+  });
+</script>
 <!-- Mirrored from themes.webmasterdriver.net/carforyou/demo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Jun 2017 07:22:11 GMT -->
 
 </html>

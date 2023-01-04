@@ -9,19 +9,25 @@ if (strlen($_SESSION['login']) == 0) {
     $password = $_POST['password'];
     $newpassword = $_POST['newpassword'];
     $email = $_SESSION['login'];
-    $sql = "SELECT Password FROM tblusers WHERE EmailId=:email and Password=:password";
+    $sql = "SELECT Password FROM tblusers WHERE EmailId=:email";
     $query = $dbh->prepare($sql);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
-    $query->bindParam(':password', $password, PDO::PARAM_STR);
     $query->execute();
-    $results = $query->fetchAll(PDO::FETCH_OBJ);
+    $results = $query->fetch(PDO::FETCH_OBJ);
+    // var_dump($results);
+    // die;
     if ($query->rowCount() > 0) {
-      $con = "update tblusers set Password=:newpassword where EmailId=:email";
-      $chngpwd1 = $dbh->prepare($con);
-      $chngpwd1->bindParam(':email', $email, PDO::PARAM_STR);
-      $chngpwd1->bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-      $chngpwd1->execute();
-      $msg = "Mật khẩu của bạn đã được thay đổi thành công";
+      if (password_verify($password, $results->Password)) {
+        $pass = password_hash($newpassword,PASSWORD_DEFAULT);
+        $con = "update tblusers set Password=:newpassword where EmailId=:email";
+        $chngpwd1 = $dbh->prepare($con);
+        $chngpwd1->bindParam(':email', $email, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':newpassword', $pass, PDO::PARAM_STR);
+        $chngpwd1->execute();
+        $msg = "Mật khẩu của bạn đã được thay đổi thành công";
+      }else{
+        $error = "Lỗi";
+      }
     } else {
       $error = "Mật khẩu cũ không chính xác";
     }
