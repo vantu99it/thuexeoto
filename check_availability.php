@@ -25,6 +25,3 @@ echo "<span style='color:red'> Email đã tồn tại .</span>";
 }
 }
 }
-
-
-?>
