@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 05, 2023 lúc 03:34 PM
+-- Thời gian đã tạo: Th1 05, 2023 lúc 04:38 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 7.4.33
 
@@ -116,26 +116,6 @@ INSERT INTO `tblbrands` (`id`, `BrandName`, `CreationDate`, `UpdationDate`) VALU
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tblcontactusinfo`
---
-
-CREATE TABLE `tblcontactusinfo` (
-  `id` int(11) NOT NULL,
-  `Address` tinytext DEFAULT NULL,
-  `EmailId` varchar(255) DEFAULT NULL,
-  `ContactNo` char(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Đang đổ dữ liệu cho bảng `tblcontactusinfo`
---
-
-INSERT INTO `tblcontactusinfo` (`id`, `Address`, `EmailId`, `ContactNo`) VALUES
-(1, 'Group 1', 'group1@gmail.com', '0368751301');
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `tblcontactusquery`
 --
 
@@ -154,8 +134,7 @@ CREATE TABLE `tblcontactusquery` (
 --
 
 INSERT INTO `tblcontactusquery` (`id`, `name`, `EmailId`, `ContactNumber`, `Message`, `PostingDate`, `status`) VALUES
-(1, 'nhom1', 'nhom1@gmail.com', '0348331028', 'Giá bao nhiêu', '2022-12-15 14:06:09', 1),
-(3, 'Le Thi Quynh', 'hly13012k2k@gmail.com', '0962632409', 'Cần hỗ trợ', '2022-12-16 02:45:16', NULL);
+(1, 'nhom7', 'nhom7@gmail.com', '0348331028', 'Giá bao nhiêu', '2022-12-15 14:06:09', 1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +146,7 @@ CREATE TABLE `tblpages` (
   `id` int(11) NOT NULL,
   `PageName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `detail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -175,10 +154,7 @@ CREATE TABLE `tblpages` (
 --
 
 INSERT INTO `tblpages` (`id`, `PageName`, `type`, `detail`) VALUES
-(1, 'Điều kiện và điều khoản', 'Terms', '<P align=justify><FONT size=2><STRONG><FONT color=#990000>(1) Thứ nhất</FONT><BR><BR></STRONG>Cần trả xe đúng thời hạn và đền bù thiệt hại nếu làm hỏng</FONT></P>\r\n'),
-(2, 'Quyền riêng tư', 'privacy', '<span style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;\">Chúng tôi đảm bảo quyền riêng tư của khách hàng không để lộ ra bên ngoài</span>'),
-(3, 'Về chúng tôi', 'aboutus', '																																																												<div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nhóm thực hiện: Nhóm 07 - Phân tích thiết kế hệ thống dựa trên mã n'),
-(11, 'Câu hỏi thường gặp', 'faqs', '																														<span style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;\">Có thể giảm giá thuê không ?</span>');
+(3, 'Về chúng tôi', 'aboutus', '																																																																																<div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nhóm thực hiện: Nhóm 07 - Phát triển ứng dụng dựa trên mã nguồn mở</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Thành viên:</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nguyễn Văn Tú (Nhóm trưởng)</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nguyễn Bá Thành</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nguyễn Thị Thùy Linh</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-family: arial; font-size: medium; font-weight: 700;\">Phạm Thị Thu Trà</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-family: arial; font-size: medium; font-weight: 700;\">Nguyễn Văn Trúc</span></div>');
 
 -- --------------------------------------------------------
 
@@ -332,12 +308,6 @@ ALTER TABLE `tblbrands`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `tblcontactusinfo`
---
-ALTER TABLE `tblcontactusinfo`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Chỉ mục cho bảng `tblcontactusquery`
 --
 ALTER TABLE `tblcontactusquery`
@@ -395,12 +365,6 @@ ALTER TABLE `tblbooking`
 --
 ALTER TABLE `tblbrands`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT cho bảng `tblcontactusinfo`
---
-ALTER TABLE `tblcontactusinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `tblcontactusquery`

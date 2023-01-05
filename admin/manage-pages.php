@@ -133,7 +133,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 													<label class="col-sm-4 control-label">Chọn trang</label>
 													<div class="col-sm-8">
 														<select name="menu1" onChange="MM_jumpMenu('parent',this,0)">
-															<option value="" selected="selected" class="form-control"> ------ </option>
+															<option value="" selected="selected" class="form-control"> Chọn trang </option>
 															<option value="manage-pages.php?type=aboutus">Về chúng tôi</option>
 														</select>
 													</div>

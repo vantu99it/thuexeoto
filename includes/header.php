@@ -7,28 +7,6 @@
         </div>
         <div class="col-sm-9 col-md-10">
           <div class="header_info">
-            <?php
-            $sql = "SELECT EmailId,ContactNo from tblcontactusinfo";
-            $query = $dbh->prepare($sql);
-            $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
-            $query->execute();
-            $results = $query->fetchAll(PDO::FETCH_OBJ);
-            foreach ($results as $result) {
-              $email = $result->EmailId;
-              $contactno = $result->ContactNo;
-            }
-            ?>
-
-            <div class="header_widgets">
-              <div class="circle_icon"> <i class="fa fa-envelope" aria-hidden="true"></i> </div>
-              <p class="uppercase_text">Hỗ trợ qua mail: </p>
-              <a href="mailto:<?php echo htmlentities($email); ?>"><?php echo htmlentities($email); ?></a>
-            </div>
-            <div class="header_widgets">
-              <div class="circle_icon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-              <p class="uppercase_text">Điện thoại: </p>
-              <a href="tel:<?php echo htmlentities($contactno); ?>"><?php echo htmlentities($contactno); ?></a>
-            </div>
             <div class="social-follow">
 
             </div>
@@ -36,7 +14,6 @@
             ?>
               <div class="login_btn"> <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Đăng nhập / Đăng kí</a> </div>
             <?php } else {
-
               echo "Xin chào!";
             } ?>
           </div>
