@@ -28,6 +28,6 @@
 				<li><a href="reg-users.php"><i class="fa fa-users"></i> Quản lý người dùng</a></li>
 				<li><a href="manage-pages.php"><i class="fa fa-files-o"></i> Quản lý nội dung</a></li>
 
-				<li><a href="/Group1/carrental/index.php" target="_blank"><i class="fa fa-dashboard"></i> Tới trang chủ</a></li>
+				<li><a href="/thuexeoto/index.php" target="_blank"><i class="fa fa-dashboard"></i> Tới trang chủ</a></li>
 			</ul>
 		</nav>
