@@ -77,12 +77,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Cập nhật thương hiệu</h2>
-
 							<div class="row">
 								<div class="col-md-10">
 									<div class="panel panel-default">
@@ -91,17 +88,16 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
 												<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 												<?php
-												$id = $_GET['id'];
-												$ret = "select * from tblbrands where id=:id";
-												$query = $dbh->prepare($ret);
-												$query->bindParam(':id', $id, PDO::PARAM_STR);
-												$query->execute();
-												$results = $query->fetchAll(PDO::FETCH_OBJ);
-												$cnt = 1;
-												if ($query->rowCount() > 0) {
-													foreach ($results as $result) {
+													$id = $_GET['id'];
+													$ret = "select * from tblbrands where id=:id";
+													$query = $dbh->prepare($ret);
+													$query->bindParam(':id', $id, PDO::PARAM_STR);
+													$query->execute();
+													$results = $query->fetchAll(PDO::FETCH_OBJ);
+													$cnt = 1;
+													if ($query->rowCount() > 0) {
+														foreach ($results as $result) {
 												?>
-
 														<div class="form-group">
 															<label class="col-sm-4 control-label">Tên thương hiệu</label>
 															<div class="col-sm-8">
@@ -113,17 +109,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 												} ?>
 												<div class="form-group">
 													<div class="col-sm-8 col-sm-offset-4">
-
 														<button class="btn btn-primary" name="submit" type="submit">Gửi</button>
 													</div>
 												</div>
-
 											</form>
-
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -131,7 +123,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!--Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

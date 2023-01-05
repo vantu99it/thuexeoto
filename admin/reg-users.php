@@ -13,9 +13,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->execute();
 		$msg = "Cập nhật thành công!";
 	}
-
-
-
 ?>
 
 	<!doctype html>
@@ -76,13 +73,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title"> Quản lý người dùng</h2>
-
-							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
 								<div class="panel-heading">Thông tin người dùng</div>
 								<div class="panel-body">
@@ -104,7 +97,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</thead>
 
 										<tbody>
-
 											<?php $sql = "SELECT * from  tblusers ";
 											$query = $dbh->prepare($sql);
 											$query->execute();
@@ -126,17 +118,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<?php $cnt = $cnt + 1;
 												}
 											} ?>
-
 										</tbody>
 									</table>
-
-
-
 								</div>
 							</div>
-
-
-
 						</div>
 					</div>
 
@@ -144,7 +129,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

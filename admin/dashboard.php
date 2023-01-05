@@ -44,12 +44,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Bảng điều khiển</h2>
-
 							<div class="row">
 								<div class="col-md-12">
 									<div class="row">
@@ -58,11 +55,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="panel-body bk-primary text-light">
 													<div class="stat-panel text-center">
 														<?php
-														$sql = "SELECT id from tblusers ";
-														$query = $dbh->prepare($sql);
-														$query->execute();
-														$results = $query->fetchAll(PDO::FETCH_OBJ);
-														$regusers = $query->rowCount();
+															// Đếm sl ueser
+															$sql = "SELECT id from tblusers ";
+															$query = $dbh->prepare($sql);
+															$query->execute();
+															$results = $query->fetchAll(PDO::FETCH_OBJ);
+															$regusers = $query->rowCount();
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($regusers); ?></div>
 														<div class="stat-panel-title text-uppercase">Người dùng đăng kí</div>
@@ -76,14 +74,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="panel-body bk-success text-light">
 													<div class="stat-panel text-center">
 														<?php
-														$sql1 = "SELECT id from tblvehicles ";
-														$query1 = $dbh->prepare($sql1);;
-														$query1->execute();
-														$results1 = $query1->fetchAll(PDO::FETCH_OBJ);
-														$totalvehicle = $query1->rowCount();
+															// đếm số lượng xe
+															$sql1 = "SELECT id from tblvehicles ";
+															$query1 = $dbh->prepare($sql1);;
+															$query1->execute();
+															$results1 = $query1->fetchAll(PDO::FETCH_OBJ);
+															$totalvehicle = $query1->rowCount();
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($totalvehicle); ?></div>
-														<div class="stat-panel-title text-uppercase">Liệt kê phương tiện</div>
+														<div class="stat-panel-title text-uppercase">Tổng số xe</div>
 													</div>
 												</div>
 												<a href="manage-vehicles.php" class="block-anchor panel-footer text-center">Chi tiết &nbsp; <i class="fa fa-arrow-right"></i></a>
@@ -93,16 +92,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="panel1 panel-default">
 												<div class="panel-body bk-info text-light">
 													<div class="stat-panel text-center">
+														<!-- Tổng số đơn thuê xe -->
 														<?php
-														$sql2 = "SELECT id from tblbooking ";
-														$query2 = $dbh->prepare($sql2);
-														$query2->execute();
-														$results2 = $query2->fetchAll(PDO::FETCH_OBJ);
-														$bookings = $query2->rowCount();
+															$sql2 = "SELECT id from tblbooking ";
+															$query2 = $dbh->prepare($sql2);
+															$query2->execute();
+															$results2 = $query2->fetchAll(PDO::FETCH_OBJ);
+															$bookings = $query2->rowCount();
 														?>
 
 														<div class="stat-panel-number h1 "><?php echo htmlentities($bookings); ?></div>
-														<div class="stat-panel-title text-uppercase">Tổng số đặt</div>
+														<div class="stat-panel-title text-uppercase">Tổng số đơn thuê</div>
 													</div>
 												</div>
 												<a href="confirmed-bookings.php" class="block-anchor panel-footer text-center">Chi tiết &nbsp; <i class="fa fa-arrow-right"></i></a>
@@ -112,15 +112,16 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="panel1 panel-default">
 												<div class="panel-body bk-warning text-light">
 													<div class="stat-panel text-center">
+														<!-- Đếm số hãng xe -->
 														<?php
-														$sql3 = "SELECT id from tblbrands ";
-														$query3 = $dbh->prepare($sql3);
-														$query3->execute();
-														$results3 = $query3->fetchAll(PDO::FETCH_OBJ);
-														$brands = $query3->rowCount();
+															$sql3 = "SELECT id from tblbrands ";
+															$query3 = $dbh->prepare($sql3);
+															$query3->execute();
+															$results3 = $query3->fetchAll(PDO::FETCH_OBJ);
+															$brands = $query3->rowCount();
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($brands); ?></div>
-														<div class="stat-panel-title text-uppercase">Liệt kê thương hiệu</div>
+														<div class="stat-panel-title text-uppercase">Hãng xe</div>
 													</div>
 												</div>
 												<a href="manage-brands.php" class="block-anchor panel-footer text-center">Chi tiết &nbsp; <i class="fa fa-arrow-right"></i></a>
@@ -136,7 +137,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

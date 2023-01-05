@@ -176,10 +176,6 @@ error_reporting(0);
 
   <!--/Register-Form -->
 
-  <!--Forgot-password-Form -->
-  <?php include('includes/forgotpassword.php'); ?>
-  <!--/Forgot-password-Form -->
-
   <!-- Scripts -->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>

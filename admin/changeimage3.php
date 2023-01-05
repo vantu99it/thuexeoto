@@ -77,12 +77,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Hình ảnh 3 </h2>
-
 							<div class="row">
 								<div class="col-md-10">
 									<div class="panel panel-default">
@@ -109,7 +106,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<?php }
 													} ?>
 												</div>
-
 												<div class="form-group">
 													<label class="col-sm-4 control-label">Cập nhật hình ảnh 3<span style="color:red">*</span></label>
 													<div class="col-sm-8">
@@ -120,30 +116,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 												<div class="form-group">
 													<div class="col-sm-8 col-sm-offset-4">
-
 														<button class="btn btn-primary" name="update" type="submit">Cập nhật</button>
 													</div>
 												</div>
-
 											</form>
-
 										</div>
 									</div>
 								</div>
-
 							</div>
-
-
-
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

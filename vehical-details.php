@@ -171,7 +171,7 @@ $_SESSION['brndid']=$result->bid;
           
             <li> <i class="fa fa-calendar" aria-hidden="true"></i>
               <h5><?php echo htmlentities($result->ModelYear);?></h5>
-              <p>Năm đăng ký</p>
+              <p>Năm sản xuất</p>
             </li>
             <li> <i class="fa fa-cogs" aria-hidden="true"></i>
               <h5><?php 
@@ -193,7 +193,11 @@ $_SESSION['brndid']=$result->bid;
               <p>Ghế ngồi</p>
             </li>
             <li> <i class="far fa-money-bill-alt" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->PricePerDay);?></h5>
+              <h5><?php 
+              $tien = (int) $result->PricePerDay;
+              $bien = number_format($tien,0,",",".");
+              echo $bien;
+              ?></h5>
               <p>VNĐ/Ngày</p>
             </li>
             <li> <i class="fas fa-car-side" aria-hidden="true"></i>
@@ -209,7 +213,7 @@ $_SESSION['brndid']=$result->bid;
           <div class="listing_detail_wrap"> 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs gray-bg" role="tablist">
-              <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Tổng quan phương tiện </a></li>
+              <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Tổng quan về xe </a></li>
           
               <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Phụ kiện</a></li>
             </ul>
@@ -218,7 +222,6 @@ $_SESSION['brndid']=$result->bid;
             <div class="tab-content"> 
               <!-- vehicle-overview -->
               <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
-                
                 <p><?php echo htmlentities($result->VehiclesOverview);?></p>
               </div>
               
@@ -321,8 +324,8 @@ $_SESSION['brndid']=$result->bid;
                       <?php } else { ?>
                       <td><i class="fa fa-close" aria-hidden="true"></i></td>
                       <?php } ?>
-                                          </tr>
-                                          <tr>
+                        </tr>
+                        <tr>
                       <td>Hỗ trợ phanh</td>
                       <?php if($result->BrakeAssist==1)
                       {

@@ -5,26 +5,30 @@ include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-	// Code for change password	
 	if (isset($_POST['submit'])) {
 		$password = $_POST['password'];
 		$newpassword = $_POST['newpassword'];
+
 		$username = $_SESSION['alogin'];
-		$sql = "SELECT Password FROM admin WHERE UserName=:username and Password=:password";
+
+		$sql = "SELECT Password FROM admin WHERE UserName=:username";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':username', $username, PDO::PARAM_STR);
-		$query->bindParam(':password', $password, PDO::PARAM_STR);
 		$query->execute();
-		$results = $query->fetchAll(PDO::FETCH_OBJ);
-		if ($query->rowCount() > 0) {
-			$con = "update admin set Password=:newpassword where UserName=:username";
-			$chngpwd1 = $dbh->prepare($con);
-			$chngpwd1->bindParam(':username', $username, PDO::PARAM_STR);
-			$chngpwd1->bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-			$chngpwd1->execute();
-			$msg = "Mật khẩu của bạn đã thay đổi thành công";
-		} else {
-			$error = "Mật khẩu hiện tại của bạn không hợp lệ!";
+		$results = $query->fetch(PDO::FETCH_OBJ);
+		if($query->rowCount() > 0){
+			$checkPass = password_verify($password, $results -> Password );
+			if ($checkPass) {
+				$passHash = password_hash($newpassword,PASSWORD_DEFAULT);
+				$con = "update admin set Password=:newpassword where UserName=:username";
+				$chngpwd1 = $dbh->prepare($con);
+				$chngpwd1->bindParam(':username', $username, PDO::PARAM_STR);
+				$chngpwd1->bindParam(':newpassword', $passHash, PDO::PARAM_STR);
+				$chngpwd1->execute();
+				$msg = "Mật khẩu của bạn đã thay đổi thành công";
+			} else {
+				$error = "Mật khẩu hiện tại của bạn không hợp lệ!";
+			}
 		}
 	}
 ?>
@@ -105,10 +109,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 							<div class="row">
 								<div class="col-md-10">
 									<div class="panel panel-default">
-										<div class="panel-heading">Các trường</div>
+										<div class="panel-heading">Thay đổi mật khẩu của bạn ngay</div>
 										<div class="panel-body">
 											<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-												<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
+												<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>: <?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>: <?php echo htmlentities($msg); ?> </div><?php } ?>
 												<div class="form-group">
 													<label class="col-sm-4 control-label">Mật khẩu hiện tại</label>
 													<div class="col-sm-8">

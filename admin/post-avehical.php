@@ -133,18 +133,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Đăng xe</h2>
-
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-default">
 										<div class="panel-heading">Thông tin cơ bản</div>
 										<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-
 										<div class="panel-body">
 											<form method="post" class="form-horizontal" enctype="multipart/form-data">
 												<div class="form-group">
@@ -153,7 +149,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<input type="text" name="vehicletitle" class="form-control" required>
 													</div>
 												</div>
-
 												<div class="hr-dashed"></div>
 												<div class="form-group">
 													<label class="col-sm-2 control-label">Thông tin chi tiết<span style="color:red">*</span></label>
@@ -161,24 +156,23 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<textarea class="form-control" name="vehicalorcview" rows="3" required></textarea>
 													</div>
 												</div>
-
 												<div class="form-group">
 													<label class="col-sm-2 control-label">Chọn thương hiệu<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<select class="selectpicker" name="brandname" required>
 															<option value=""> Chọn </option>
 															<?php $ret = "select id,BrandName from tblbrands";
-															$query = $dbh->prepare($ret);
-															//$query->bindParam(':id',$id, PDO::PARAM_STR);
-															$query->execute();
-															$results = $query->fetchAll(PDO::FETCH_OBJ);
-															if ($query->rowCount() > 0) {
-																foreach ($results as $result) {
+																$query = $dbh->prepare($ret);
+																//$query->bindParam(':id',$id, PDO::PARAM_STR);
+																$query->execute();
+																$results = $query->fetchAll(PDO::FETCH_OBJ);
+																if ($query->rowCount() > 0) {
+																	foreach ($results as $result) {
+																?>
+																		<option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?></option>
+																<?php }
+																} 
 															?>
-																	<option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?></option>
-															<?php }
-															} ?>
-
 														</select>
 													</div>
 													
@@ -198,9 +192,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													
 												</div>
 
-
-												<div class="form-group">
-													
+												<div class="form-group">									
 													<label class="col-sm-2 control-label">Số chỗ ngồi<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<input type="text" name="seatingcapacity" class="form-control" required>
@@ -215,15 +207,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</div>
 												</div>
 												<div class="hr-dashed"></div>
-
-
 												<div class="form-group">
 													<div class="col-sm-12">
 														<h4><b>Cập nhật hình ảnh</b></h4>
 													</div>
 												</div>
-
-
 												<div class="form-group" style="display: flex; justify-content: space-between;">
 													<div class="col-sm-4">
 														Hình 1 <span style="color:red">*</span><input type="file" name="img1" required>
@@ -236,7 +224,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</div>
 												</div>
 
-
 												<div class="form-group" style="display: flex; justify-content: space-between;">
 													<div class="col-sm-4">
 														Hình 4<span style="color:red">*</span><input type="file" name="img4" required>
@@ -244,15 +231,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<div class="col-sm-4">
 														Hình 5<input type="file" name="img5">
 													</div>
-
 												</div>
-												<div class="hr-dashed"></div>
+											<div class="hr-dashed"></div>
 										</div>
 									</div>
 								</div>
 							</div>
-
-
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-default">
@@ -284,8 +268,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<label for="brakeassist"> Hỗ trợ phanh </label>
 												</div>
 											</div>
-
-
 
 											<div class="form-group">
 												<div class="col-sm-3">
@@ -340,35 +322,24 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 
 											</div>
-
-
-
-
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-2">
 													<button class="btn btn-default" type="reset">Hủy</button>
 													<button class="btn btn-primary" name="submit" type="submit">Lưu thay đổi</button>
 												</div>
 											</div>
-
 											</form>
 										</div>
 									</div>
 								</div>
 							</div>
-
-
-
 						</div>
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!--Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

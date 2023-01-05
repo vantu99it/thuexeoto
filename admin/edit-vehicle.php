@@ -53,7 +53,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':quantity', $quantity, PDO::PARAM_STR);
 		$query->bindParam(':id', $id, PDO::PARAM_STR);
 		$query->execute();
-
 		$msg = "Cập nhật thành công";
 	}
 
@@ -70,7 +69,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="author" content="">
 		<meta name="theme-color" content="#3e454c">
 
-		<title>Trang quản trị | Chỉnh sửa thông tin</title>
+		<title>Trang quản trị | Chỉnh sửa bài viết</title>
 
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -115,12 +114,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Chỉnh sửa thông tin xe</h2>
-
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-default">
@@ -138,128 +134,125 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$cnt = 1;
 											if ($query->rowCount() > 0) {
 												foreach ($results as $result) {	?>
-
-													<form method="post" class="form-horizontal" enctype="multipart/form-data">
-														<div class="form-group">
-															<label class="col-sm-2 control-label">Tên xe<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="text" name="vehicletitle" class="form-control" value="<?php echo htmlentities($result->VehiclesTitle) ?>" required>
-															</div>
-															
+												<form method="post" class="form-horizontal" enctype="multipart/form-data">
+													<div class="form-group">
+														<label class="col-sm-2 control-label">Tên xe<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<input type="text" name="vehicletitle" class="form-control" value="<?php echo htmlentities($result->VehiclesTitle) ?>" required>
 														</div>
+														
+													</div>
 
-														<div class="hr-dashed"></div>
-														<div class="form-group">
-															<label class="col-sm-2 control-label">Tổng quan<span style="color:red">*</span></label>
-															<div class="col-sm-10">
-																<textarea class="form-control" name="vehicalorcview" rows="3" required><?php echo htmlentities($result->VehiclesOverview); ?></textarea>
-															</div>
+													<div class="hr-dashed"></div>
+													<div class="form-group">
+														<label class="col-sm-2 control-label">Tổng quan<span style="color:red">*</span></label>
+														<div class="col-sm-10">
+															<textarea class="form-control" name="vehicalorcview" rows="3" required><?php echo htmlentities($result->VehiclesOverview); ?></textarea>
 														</div>
+													</div>
 
-														<div class="form-group">
-															<label class="col-sm-2 control-label">Chọn thương hiệu<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<select class="selectpicker" name="brandname" required>
-																	<option value="<?php echo htmlentities($result->bid); ?>"><?php echo htmlentities($bdname = $result->BrandName); ?> </option>
-																	<?php $ret = "select id,BrandName from tblbrands";
-																	$query = $dbh->prepare($ret);
-																	//$query->bindParam(':id',$id, PDO::PARAM_STR);
-																	$query->execute();
-																	$resultss = $query->fetchAll(PDO::FETCH_OBJ);
-																	if ($query->rowCount() > 0) {
-																		foreach ($resultss as $results) {
-																			if ($results->BrandName == $bdname) {
-																				continue;
-																			} else {
-																	?>
-																				<option value="<?php echo htmlentities($results->id); ?>"><?php echo htmlentities($results->BrandName); ?></option>
-																	<?php }
-																		}
-																	} ?>
+													<div class="form-group">
+														<label class="col-sm-2 control-label">Chọn thương hiệu<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<select class="selectpicker" name="brandname" required>
+																<option value="<?php echo htmlentities($result->bid); ?>"><?php echo htmlentities($bdname = $result->BrandName); ?> </option>
+																<?php $ret = "select id,BrandName from tblbrands";
+																$query = $dbh->prepare($ret);
+																//$query->bindParam(':id',$id, PDO::PARAM_STR);
+																$query->execute();
+																$resultss = $query->fetchAll(PDO::FETCH_OBJ);
+																if ($query->rowCount() > 0) {
+																	foreach ($resultss as $results) {
+																		if ($results->BrandName == $bdname) {
+																			continue;
+																		} else {
+																?>
+																			<option value="<?php echo htmlentities($results->id); ?>"><?php echo htmlentities($results->BrandName); ?></option>
+																<?php }
+																	}
+																} ?>
 
-																</select>
-															</div>
-															
-															<label class="col-sm-2 control-label">Chọn nhiên liệu<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<select class="selectpicker" name="fueltype" required>
-																	<option value="<?php echo htmlentities($result->FuelType); ?>"> <?php echo htmlentities($result->FuelType); ?> </option>
-
-																	<option value="Petrol">Xăng</option>
-																	<option value="Diesel">Dầu</option>
-																	<option value="EV">Điện</option>
-																</select>
-															</div>
-															<label class="col-sm-2 control-label">Đời xe<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result->ModelYear); ?>" required>
-															</div>
+															</select>
 														</div>
+														
+														<label class="col-sm-2 control-label">Chọn nhiên liệu<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<select class="selectpicker" name="fueltype" required>
+																<option value="<?php echo htmlentities($result->FuelType); ?>"> <?php echo htmlentities($result->FuelType); ?> </option>
 
-
-														<div class="form-group">
-															
-															<label class="col-sm-2 control-label">Chỗ ngồi<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="text" name="seatingcapacity" class="form-control" value="<?php echo htmlentities($result->SeatingCapacity); ?>" required>
-															</div>
-															<label class="col-sm-2 control-label">Số lượng xe<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="number" name="quantity" class="form-control" value="<?php echo htmlentities($result->quantity); ?>" required>
-															</div>
-															<label class="col-sm-2 control-label">Giá thuê mỗi ngày(đ)<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="text" name="priceperday" class="form-control" value="<?php echo htmlentities($result->PricePerDay); ?>" required>
-															</div>
+																<option value="Petrol">Xăng</option>
+																<option value="Diesel">Dầu</option>
+																<option value="EV">Điện</option>
+															</select>
 														</div>
-
-														<div class="hr-dashed"></div>
-														<div class="form-group">
-															<div class="col-sm-12">
-																<h4><b>Hình ảnh phương tiện</b></h4>
-															</div>
+														<label class="col-sm-2 control-label">Đời xe<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result->ModelYear); ?>" required>
 														</div>
+													</div>
 
 
-														<div class="form-group">
-															<div class="col-sm-4" style="width: 32%;">
-																Hình 1 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" width="300" height="200" style="border:solid 1px #000">
-																<a href="changeimage1.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 1</a>
-															</div>
-															<div class="col-sm-4" style="width: 32%;">
-																Hình 2<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage2); ?>" width="300" height="200" style="border:solid 1px #000">
-																<a href="changeimage2.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 2</a>
-															</div>
-															<div class="col-sm-4" style="width: 32%;">
-																Hình 3 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage3); ?>" width="300" height="200" style="border:solid 1px #000">
-																<a href="changeimage3.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 3</a>
-															</div>
+													<div class="form-group">
+														
+														<label class="col-sm-2 control-label">Chỗ ngồi<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<input type="text" name="seatingcapacity" class="form-control" value="<?php echo htmlentities($result->SeatingCapacity); ?>" required>
 														</div>
-
-
-														<div class="form-group">
-															<div class="col-sm-4" style="width: 32%;">
-																Hình 4 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage4); ?>" width="300" height="200" style="border:solid 1px #000">
-																<a href="changeimage4.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 4</a>
-															</div>
-															<div class="col-sm-4" style="width: 32%;">
-																Hình 5
-																<?php if ($result->Vimage5 == "") {
-																	echo htmlentities("File not available");
-																} else { ?>
-																	<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage5); ?>" width="300" height="200" style="border:solid 1px #000">
-																	<a href="changeimage5.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 5</a>
-																<?php } ?>
-															</div>
+														<label class="col-sm-2 control-label">Số lượng xe<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<input type="number" name="quantity" class="form-control" value="<?php echo htmlentities($result->quantity); ?>" required>
 														</div>
-														<div class="hr-dashed"></div>
+														<label class="col-sm-2 control-label">Giá thuê mỗi ngày(đ)<span style="color:red">*</span></label>
+														<div class="col-sm-4">
+															<input type="text" name="priceperday" class="form-control" value="<?php echo htmlentities($result->PricePerDay); ?>" required>
+														</div>
+													</div>
+
+													<div class="hr-dashed"></div>
+													<div class="form-group">
+														<div class="col-sm-12">
+															<h4><b>Hình ảnh phương tiện</b></h4>
+														</div>
+													</div>
+
+
+													<div class="form-group">
+														<div class="col-sm-4" style="width: 32%;">
+															Hình 1 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" width="300" height="200" style="border:solid 1px #000">
+															<a href="changeimage1.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 1</a>
+														</div>
+														<div class="col-sm-4" style="width: 32%;">
+															Hình 2<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage2); ?>" width="300" height="200" style="border:solid 1px #000">
+															<a href="changeimage2.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 2</a>
+														</div>
+														<div class="col-sm-4" style="width: 32%;">
+															Hình 3 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage3); ?>" width="300" height="200" style="border:solid 1px #000">
+															<a href="changeimage3.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 3</a>
+														</div>
+													</div>
+
+
+													<div class="form-group">
+														<div class="col-sm-4" style="width: 32%;">
+															Hình 4 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage4); ?>" width="300" height="200" style="border:solid 1px #000">
+															<a href="changeimage4.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 4</a>
+														</div>
+														<div class="col-sm-4" style="width: 32%;">
+															Hình 5
+															<?php if ($result->Vimage5 == "") {
+																echo htmlentities("File not available");
+															} else { ?>
+																<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage5); ?>" width="300" height="200" style="border:solid 1px #000">
+																<a href="changeimage5.php?imgid=<?php echo htmlentities($result->id) ?>">Thay đổi hình ảnh 5</a>
+															<?php } ?>
+														</div>
+													</div>
+
+											<div class="hr-dashed"></div>
 										</div>
 									</div>
 								</div>
 							</div>
-
-
-
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-default">
@@ -455,23 +448,20 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 										</div>
 									</div>
-
-
-
 								</div>
 							</div>
 						</div>
 
-						<!-- Loading Scripts -->
-						<script src="js/jquery.min.js"></script>
-						<script src="js/bootstrap-select.min.js"></script>
-						<script src="js/bootstrap.min.js"></script>
-						<script src="js/jquery.dataTables.min.js"></script>
-						<script src="js/dataTables.bootstrap.min.js"></script>
-						<script src="js/Chart.min.js"></script>
-						<script src="js/fileinput.js"></script>
-						<script src="js/chartData.js"></script>
-						<script src="js/main.js"></script>
+		<!-- Scripts -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap-select.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script src="js/dataTables.bootstrap.min.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/fileinput.js"></script>
+		<script src="js/chartData.js"></script>
+		<script src="js/main.js"></script>
 	</body>
 
 	</html>

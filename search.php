@@ -78,13 +78,10 @@ error_reporting(0);
           <div class="result-sorting-wrapper">
             <div class="sorting-count">
               <?php
-              //Query for Listing count
+              
               $searchdata = $_POST['searchdata'];
-              $sql = "SELECT tblvehicles.id from tblvehicles 
-join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand 
-where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbrands.BrandName=:search || tblvehicles.ModelYear=:search";
+              $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.VehiclesTitle LIKE '%".$searchdata."%' || tblbrands.BrandName  LIKE '%".$searchdata."%' || tblvehicles.ModelYear LIKE '%".$searchdata."%'";
               $query = $dbh->prepare($sql);
-              $query->bindParam(':search', $searchdata, PDO::PARAM_STR);
               $query->execute();
               $results = $query->fetchAll(PDO::FETCH_OBJ);
               $cnt = $query->rowCount();
@@ -94,11 +91,9 @@ where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbr
           </div>
 
           <?php
-          $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles 
-join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand 
-where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbrands.BrandName=:search || tblvehicles.ModelYear=:search";
+          $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand 
+where tblvehicles.VehiclesTitle LIKE '%".$searchdata."%' || tblbrands.BrandName  LIKE '%".$searchdata."%' || tblvehicles.ModelYear LIKE '%".$searchdata."%'";
           $query = $dbh->prepare($sql);
-          $query->bindParam(':search', $searchdata, PDO::PARAM_STR);
           $query->execute();
           $results = $query->fetchAll(PDO::FETCH_OBJ);
           $cnt = 1;
@@ -113,7 +108,17 @@ where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbr
                   <ul>
                     <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?> Ghế ngồi</li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?> Mô hình</li>
-                    <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
+                    <li><i class="fa fa-car" aria-hidden="true"></i><?php 
+                      if($result->FuelType == "Petrol"){
+                        echo "Xăng";
+                      }
+                      if($result->FuelType == "Diesel"){
+                        echo "Dầu";
+                      }
+                      if($result->FuelType == "EV"){
+                        echo "Điện";
+                      }
+                    ?></li>
                   </ul>
                   <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn">Xem chi tiết<span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 </div>
@@ -143,11 +148,7 @@ where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbr
 
   <!--Register-Form -->
   <?php include('includes/registration.php'); ?>
-
   <!--/Register-Form -->
-
-  <!--Forgot-password-Form -->
-  <?php include('includes/forgotpassword.php'); ?>
 
   <!-- Scripts -->
   <script src="assets/js/jquery.min.js"></script>

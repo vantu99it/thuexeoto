@@ -78,12 +78,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Tạo thương hiệu</h2>
-
 							<div class="row">
 								<div class="col-md-10">
 									<div class="panel panel-default">
@@ -107,20 +104,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 									</div>
 								</div>
-
 							</div>
-
-
-
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!--Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

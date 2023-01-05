@@ -4,18 +4,23 @@ include('includes/config.php');
 if (isset($_POST['login'])) {
 	$email = $_POST['username'];
 	$password = $_POST['password'];
-	$sql = "SELECT UserName,Password FROM admin WHERE UserName=:email and Password=:password";
+	$sql = "SELECT UserName,Password FROM admin WHERE UserName=:email";
 	$query = $dbh->prepare($sql);
 	$query->bindParam(':email', $email, PDO::PARAM_STR);
-	$query->bindParam(':password', $password, PDO::PARAM_STR);
 	$query->execute();
-	$results = $query->fetchAll(PDO::FETCH_OBJ);
-	if ($query->rowCount() > 0) {
-		$_SESSION['alogin'] = $_POST['username'];
-		echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
-	} else {
+	$results = $query->fetch(PDO::FETCH_OBJ);
+	if($query->rowCount() > 0){
+		$checkPass = password_verify($password, $results -> Password );
+		if ($checkPass) {
+			$_SESSION['alogin'] = $_POST['username'];
+			echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
+		} else {
 
-		echo "<script>alert('Invalid Details');</script>";
+			echo "<script>alert('Đăng nhập thất bại! Vui lòng thử lại');</script>";
+		}
+	}
+	else {
+		echo "<script>alert('Tên tài khoản không tồn tại');</script>";
 	}
 }
 

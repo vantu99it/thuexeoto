@@ -55,7 +55,7 @@ if (isset($_POST['login'])) {
       </div>
       <div class="modal-footer text-center">
         <p>Bạn chưa có tài khoản? <a href="#signupform" data-toggle="modal" data-dismiss="modal"> Đăng ký tại đây</a></p>
-        <p><a href="#forgotpassword" data-toggle="modal" data-dismiss="modal">Quên mật khẩu?</a></p>
+        <p><a href="" data-toggle="modal" data-dismiss="modal">Quên mật khẩu?</a></p>
       </div>
     </div>
   </div>

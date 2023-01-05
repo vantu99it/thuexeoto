@@ -66,13 +66,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Đơn hàng mới chưa xác nhận</h2>
-
-							<!-- Zero Configuration Table -->
+							<!-- Bảng -->
 							<div class="panel panel-default">
 								<div class="panel-heading">Thông tin đơn hàng</div>
 								<div class="panel-body">
@@ -93,63 +90,55 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</thead>
 
 										<tbody>
-
 											<?php
-											$status = 0;
-											$sql = "SELECT tblbooking.id as idbooking,tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.Status=:status";
-											$query = $dbh->prepare($sql);
-											$query->bindParam(':status', $status, PDO::PARAM_STR);
-											$query->execute();
-											$results = $query->fetchAll(PDO::FETCH_OBJ);
-											$cnt = 1;
-											if ($query->rowCount() > 0) {
-												foreach ($results as $result) {				?>
-													<tr>
-														<td><?php echo htmlentities($cnt); ?></td>
-														<td><?php echo htmlentities($result->FullName); ?></td>
-														<td><?php echo "#".htmlentities($result->idbooking); ?></td>
-														<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></td>
-														<td><?php echo htmlentities($result->FromDate); ?></td>
-														<td><?php echo htmlentities($result->ToDate); ?></td>
-														<td><?php
-															if ($result->Status == 0) {
-																echo htmlentities('Chưa được xác nhận');
-															} else if ($result->Status == 1) {
-																echo htmlentities('Đã xác nhận');
-															} else {
-																echo htmlentities('Đã hủy');
-															}
-															?></td>
-														<td><?php echo htmlentities($result->PostingDate); ?></td>
-														<td>
+												$status = 0;
+												$sql = "SELECT tblbooking.id as idbooking,tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.Status=:status";
+												$query = $dbh->prepare($sql);
+												$query->bindParam(':status', $status, PDO::PARAM_STR);
+												$query->execute();
+												$results = $query->fetchAll(PDO::FETCH_OBJ);
+												$cnt = 1;
+												if ($query->rowCount() > 0) {
+													foreach ($results as $result) {				?>
+														<tr>
+															<td><?php echo htmlentities($cnt); ?></td>
+															<td><?php echo htmlentities($result->FullName); ?></td>
+															<td><?php echo "#".htmlentities($result->idbooking); ?></td>
+															<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></td>
+															<td><?php echo htmlentities($result->FromDate); ?></td>
+															<td><?php echo htmlentities($result->ToDate); ?></td>
+															<td><?php
+																if ($result->Status == 0) {
+																	echo htmlentities('Chưa được xác nhận');
+																} else if ($result->Status == 1) {
+																	echo htmlentities('Đã xác nhận');
+																} else {
+																	echo htmlentities('Đã hủy');
+																}
+																?></td>
+															<td><?php echo htmlentities($result->PostingDate); ?></td>
+															<td>
 
 
-															<a href="bookig-details.php?bid=<?php echo htmlentities($result->id); ?>"> View</a>
-														</td>
+																<a href="bookig-details.php?bid=<?php echo htmlentities($result->id); ?>"> View</a>
+															</td>
 
-													</tr>
-											<?php $cnt = $cnt + 1;
-												}
-											} ?>
-
+														</tr>
+												<?php $cnt = $cnt + 1;
+													}
+												} 
+											?>
 										</tbody>
 									</table>
-
-
-
 								</div>
 							</div>
-
-
-
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

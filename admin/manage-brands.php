@@ -67,18 +67,16 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body>
+		<!-- header -->
 		<?php include('includes/header.php'); ?>
-
+		<!-- /header -->
 		<div class="ts-main-content">
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Quản lý thương hiệu</h2>
-
 							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
 								<div class="panel-heading">Danh sách thương hiệu</div>
@@ -109,31 +107,23 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<td><?php echo htmlentities($result->CreationDate); ?></td>
 														<td><?php echo htmlentities($result->UpdationDate); ?></td>
 														<td><a href="edit-brand.php?id=<?php echo $result->id; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-															<a href="manage-brands.php?del=<?php echo $result->id; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
+															<a href="manage-brands.php?del=<?php echo $result->id; ?>" onclick="return confirm('Bạn muốn xóa thương hiệu?');"><i class="fa fa-close"></i></a>
 														</td>
 													</tr>
 											<?php $cnt = $cnt + 1;
 												}
 											} ?>
-
 										</tbody>
 									</table>
-
-
-
 								</div>
 							</div>
-
-
-
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

@@ -135,7 +135,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<h2 class="page-title">Chi tiết đặt lịch</h2>
 
-							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
 								<div class="panel-heading">Thông tin đặt lịch</div>
 								<div class="panel-body">
@@ -264,7 +263,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 				</div>
 			</div>
 
-			<!-- Loading Scripts -->
+			<!--Scripts -->
 			<script src="js/jquery.min.js"></script>
 			<script src="js/bootstrap-select.min.js"></script>
 			<script src="js/bootstrap.min.js"></script>

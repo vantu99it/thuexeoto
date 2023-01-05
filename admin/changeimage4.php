@@ -77,12 +77,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Hình ảnh 4 </h2>
-
 							<div class="row">
 								<div class="col-md-10">
 									<div class="panel panel-default">
@@ -90,7 +87,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<div class="panel-body">
 											<form method="post" class="form-horizontal" enctype="multipart/form-data">
 												<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-
 												<div class="form-group">
 													<label class="col-sm-4 control-label">Tải hình ảnh lên</label>
 													<?php
@@ -124,13 +120,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<button class="btn btn-primary" name="update" type="submit">Cập nhật</button>
 													</div>
 												</div>
-
 											</form>
-
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -138,7 +131,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

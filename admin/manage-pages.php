@@ -114,20 +114,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
 							<h2 class="page-title">Quản lý trang </h2>
-
 							<div class="row">
 								<div class="col-md-10">
 									<div class="panel panel-default">
 										<div class="panel-heading">Biểu mẫu</div>
 										<div class="panel-body">
 											<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-
-
 												<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 												<div class="form-group">
 													<label class="col-sm-4 control-label">Chọn trang</label>
@@ -144,17 +139,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 													<label class="col-sm-4 control-label">Trang đã chọn</label>
 													<div class="col-sm-8">
 														<?php
+															switch ($_GET['type']) {
+																case "aboutus":
+																	echo "Về chúng tôi";
+																	break;
 
-														switch ($_GET['type']) {
-															case "aboutus":
-																echo "Về chúng tôi";
-																break;
-
-															default:
-																echo "";
-																break;
-														}
-
+																default:
+																	echo "";
+																	break;
+															}
 														?>
 													</div>
 												</div>
@@ -163,51 +156,40 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 													<label class="col-sm-4 control-label">Chi tiết trang </label>
 													<div class="col-sm-8">
 														<textarea class="form-control" rows="5" cols="50" name="pgedetails" id="pgedetails" placeholder="Package Details" required>
-										<?php
-										$pagetype = $_GET['type'];
-										$sql = "SELECT detail from tblpages where type=:pagetype";
-										$query = $dbh->prepare($sql);
-										$query->bindParam(':pagetype', $pagetype, PDO::PARAM_STR);
-										$query->execute();
-										$results = $query->fetchAll(PDO::FETCH_OBJ);
-										$cnt = 1;
-										if ($query->rowCount() > 0) {
-											foreach ($results as $result) {
-												echo htmlentities($result->detail);
-											}
-										}
-										?>
-
-										</textarea>
+															<?php
+															$pagetype = $_GET['type'];
+															$sql = "SELECT detail from tblpages where type=:pagetype";
+															$query = $dbh->prepare($sql);
+															$query->bindParam(':pagetype', $pagetype, PDO::PARAM_STR);
+															$query->execute();
+															$results = $query->fetchAll(PDO::FETCH_OBJ);
+															$cnt = 1;
+															if ($query->rowCount() > 0) {
+																foreach ($results as $result) {
+																	echo htmlentities($result->detail);
+																}
+															}
+															?>
+														</textarea>
 													</div>
 												</div>
-
 												<div class="form-group">
 													<div class="col-sm-8 col-sm-offset-4">
-
 														<button type="submit" name="submit" value="Update" id="submit" class="btn-primary btn">Cập nhật</button>
 													</div>
 												</div>
-
 											</form>
-
 										</div>
 									</div>
 								</div>
-
 							</div>
-
-
-
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

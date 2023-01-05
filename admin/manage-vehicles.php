@@ -91,7 +91,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<thead>
 											<tr>
 												<th>STT</th>
-												<th>Tiêu đề phương tiện</th>
+												<th>Tên xe</th>
 												<th>Thương hiệu </th>
 												<th>Giá mỗi ngày</th>
 												<th>Loại nhiên liệu</th>
@@ -116,7 +116,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td><?php echo htmlentities($result->FuelType); ?></td>
 													<td><?php echo htmlentities($result->ModelYear); ?></td>
 													<td><a href="edit-vehicle.php?id=<?php echo $result->id; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-														<a href="manage-vehicles.php?del=<?php echo $result->id; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
+														<a href="manage-vehicles.php?del=<?php echo $result->id; ?>" onclick="return confirm('Bạn muốn xóa bài đăng này?');"><i class="fa fa-close"></i></a>
 													</td>
 												</tr>
 										<?php $cnt = $cnt + 1;

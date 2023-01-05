@@ -66,17 +66,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12">
-
+							<!-- Bảng hiện-->
 							<h2 class="page-title">Đã xác nhận đặt lịch</h2>
-
-							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
 								<div class="panel-heading">Thông tin đặt lịch</div>
 								<div class="panel-body">
-
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr>
@@ -91,11 +87,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Hoạt động</th>
 											</tr>
 										</thead>
-
 										<tbody>
-
-											<?php
-									
+											<?php							
 											$sql = "SELECT tblbooking.id as idbooking,tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id  where tblbooking.Status=1 or tblbooking.Status=3";
 											$query = $dbh->prepare($sql);
 											$query->execute();
@@ -130,25 +123,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<?php $cnt = $cnt + 1;
 												}
 											} ?>
-
 										</tbody>
 									</table>
-
-
-
 								</div>
 							</div>
-
-
-
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 
-		<!-- Loading Scripts -->
+		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
