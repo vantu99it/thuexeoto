@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 05, 2023 lúc 04:38 PM
+-- Thời gian đã tạo: Th1 05, 2023 lúc 07:35 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 7.4.33
 
@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `UserName`, `Password`, `updationDate`) VALUES
-(1, 'admin', '123456', '2022-12-15 14:03:09');
+(1, 'admin', '$2y$10$U7Iro57nLqEQ9rBDrkpIR.T6IxuEcCdWSJdtWgrJQowYGW40IVuEa', '2023-01-05 18:06:06');
 
 -- --------------------------------------------------------
 
@@ -109,9 +109,7 @@ INSERT INTO `tblbrands` (`id`, `BrandName`, `CreationDate`, `UpdationDate`) VALU
 (5, 'Toyota', '2022-12-15 14:05:09', '2023-01-05 14:18:53'),
 (7, 'Vinfast', '2022-12-15 14:05:09', '2023-01-05 14:18:58'),
 (8, 'KIA', '2022-12-15 14:06:09', '2023-01-05 14:19:04'),
-(9, 'Hyundai ', '2022-12-15 14:06:09', '2023-01-05 14:19:07'),
-(10, 'Honda', '2022-12-15 14:06:09', '2023-01-05 14:19:09'),
-(11, 'Mitsubishi', '2022-12-15 14:06:09', '2023-01-05 14:19:13');
+(9, 'Hyundai ', '2022-12-15 14:06:09', '2023-01-05 14:19:07');
 
 -- --------------------------------------------------------
 
@@ -155,48 +153,6 @@ CREATE TABLE `tblpages` (
 
 INSERT INTO `tblpages` (`id`, `PageName`, `type`, `detail`) VALUES
 (3, 'Về chúng tôi', 'aboutus', '																																																																																<div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nhóm thực hiện: Nhóm 07 - Phát triển ứng dụng dựa trên mã nguồn mở</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Thành viên:</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nguyễn Văn Tú (Nhóm trưởng)</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nguyễn Bá Thành</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-weight: 700; font-size: medium; font-family: arial;\">Nguyễn Thị Thùy Linh</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-family: arial; font-size: medium; font-weight: 700;\">Phạm Thị Thu Trà</span></div><div style=\"text-align: center;\"><span style=\"color: rgb(51, 51, 51); font-family: arial; font-size: medium; font-weight: 700;\">Nguyễn Văn Trúc</span></div>');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `tblsubscribers`
---
-
-CREATE TABLE `tblsubscribers` (
-  `id` int(11) NOT NULL,
-  `SubscriberEmail` varchar(120) DEFAULT NULL,
-  `PostingDate` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Đang đổ dữ liệu cho bảng `tblsubscribers`
---
-
-INSERT INTO `tblsubscribers` (`id`, `SubscriberEmail`, `PostingDate`) VALUES
-(4, 'bathanh@gmail.com', '2022-12-15 17:00:00'),
-(5, 'thuylinh@gmail.com', '2022-12-01 14:20:06');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `tbltestimonial`
---
-
-CREATE TABLE `tbltestimonial` (
-  `id` int(11) NOT NULL,
-  `UserEmail` varchar(100) NOT NULL,
-  `Testimonial` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PostingDate` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Đang đổ dữ liệu cho bảng `tbltestimonial`
---
-
-INSERT INTO `tbltestimonial` (`id`, `UserEmail`, `Testimonial`, `PostingDate`, `status`) VALUES
-(1, 'test@gmail.com', 'Rất tốt', '2022-12-16 14:30:12', 1),
-(2, 'Test1@gmail.com', 'Quá tuyệt vời', '2022-12-23 16:06:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -320,18 +276,6 @@ ALTER TABLE `tblpages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `tblsubscribers`
---
-ALTER TABLE `tblsubscribers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `tbltestimonial`
---
-ALTER TABLE `tbltestimonial`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Chỉ mục cho bảng `tblusers`
 --
 ALTER TABLE `tblusers`
@@ -377,18 +321,6 @@ ALTER TABLE `tblcontactusquery`
 --
 ALTER TABLE `tblpages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT cho bảng `tblsubscribers`
---
-ALTER TABLE `tblsubscribers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT cho bảng `tbltestimonial`
---
-ALTER TABLE `tbltestimonial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `tblusers`
