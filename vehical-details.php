@@ -174,7 +174,17 @@ $_SESSION['brndid']=$result->bid;
               <p>Năm đăng ký</p>
             </li>
             <li> <i class="fa fa-cogs" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->FuelType);?></h5>
+              <h5><?php 
+                if($result->FuelType == "Petrol"){
+                  echo "Xăng";
+                }
+                if($result->FuelType == "Diesel"){
+                  echo "Dầu";
+                }
+                if($result->FuelType == "EV"){
+                  echo "Điện";
+                }
+              ?></h5>
               <p>Loại nhiên liệu</p>
             </li>
        
