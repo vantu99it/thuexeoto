@@ -1069,7 +1069,7 @@ nav.navbar {
 /*-------------------------
 	3.1. Banner
 -------------------------------*/
-.banner-section {
+/* .banner-section {
   background-image: url("../images/mec.jpg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -1086,9 +1086,19 @@ nav.navbar {
   position: absolute;
   right: 0;
   width: 100%;
-}
+} */
 .banner_content {
   padding-left: 120px;
+}
+#banner img{
+  height: 450px;
+}
+.slick-prev{
+  color: #ffffff;
+  z-index: 99;
+}
+.slick-next{
+  color: #ffffff;
 }
 .banner_content h1 {
   color: #ffffff;
@@ -1354,7 +1364,6 @@ nav.navbar {
 	line-height:35px;
 	background:rgba(0, 0, 0, 0.5);
 	border:0px;
-	
 }
 .blog-info-box .share_article:hover ul {
 	opacity:1;
@@ -1373,13 +1382,13 @@ nav.navbar {
 	3.5. Fun-Facts
 -----------------------------*/
 .fun-facts-section {
-  background: rgba(0, 0, 0, 0) url("../images/fun-facts-bg.jpg") repeat scroll 0 0;
+  background: url("../images/slider-footerjpg.jpg");
   padding: 100px 0;
   position: relative;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-}
+  height: 450px;
 }
 .fun-facts-m {
   border-radius: 50%;
@@ -2282,18 +2291,22 @@ form .slider.slider-horizontal {
 ==============================================*/
 
 .page-header {
-  background-image: url("../images/listing-page-header-img.jpg");
+  background-image: url("../images/slider.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   border: 0 none;
   margin: 0 auto;
   padding: 0;
   position: relative;
+  height: 450px;
 }
 .page-header_wrap {
-  padding:60px 0;
-  position:relative;	
+  top: 50%;
+  left: 50%;
+  position:absolute;
   text-align:center;
+  transform: translate(-50%, -50%);
+  z-index: 99;
 }
 .page-heading {
   z-index:1;
@@ -2899,7 +2912,7 @@ table.info-tabel tr td {
 	10. Contact-Us-Page
 ================================*/
 .contactus_page {
-	background-image:url(../images/contact-page-header-img.jpg);	
+	background-image:url(../images/slider.jpg);	
 }
 .contact_form {
 	padding:28px;
@@ -2986,7 +2999,7 @@ table.info-tabel tr td {
 	12. About-Us-Page
 ================================*/
 .aboutus_page {
-	background-image:url(../images/aboutus-page-header-img.jpg);
+	background-image:url(../images/slider.jpg);
 }
 .about_img {
   background: #000 none repeat scroll 0 0;
