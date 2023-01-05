@@ -2,6 +2,23 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
+
+  $item_per_page = !empty($_GET['per-page'])?$_GET['per-page']:6;
+  $current_page = !empty($_GET['page'])?$_GET['page']:1 ;
+  $offset = ($current_page - 1) * $item_per_page;
+
+  $totalPage = $dbh->prepare("SELECT COUNT(*) AS number from tblvehicles");
+  $totalPage->execute();
+  $resultsnum = $totalPage->fetch(PDO::FETCH_OBJ);
+  $totalPages = $resultsnum -> number;
+  $totalPages = ceil($totalPages/$item_per_page);
+  // var_dump($totalPages); die();
+
+  $sql1 = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand ORDER BY tblvehicles.id DESC LIMIT ".$item_per_page." OFFSET ".$offset;
+  $query1 = $dbh->prepare($sql1);
+  $query1->execute();
+  $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
+  $cnt = 1;
 ?>
 
 <!DOCTYPE HTML>
@@ -91,13 +108,9 @@ error_reporting(0);
             </div>
           </div>
 
-          <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
-          $query = $dbh->prepare($sql);
-          $query->execute();
-          $results = $query->fetchAll(PDO::FETCH_OBJ);
-          $cnt = 1;
-          if ($query->rowCount() > 0) {
-            foreach ($results as $result) {  ?>
+          <?php 
+          if ($query1->rowCount() > 0) {
+            foreach ($results1 as $result) {  ?>
               <div class="product-listing-m gray-bg" Style="background: #ddd;">
                 <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="Image" /> </a>
                 </div>
@@ -115,13 +128,16 @@ error_reporting(0);
           <?php }
           } ?>
         </div>
-
+        
         <!--Side-Bar-->
 
 
         </aside>
         <!--/Side-Bar-->
       </div>
+        <!-- phân trang -->
+        <?php include './includes/page-division.php'; ?>
+        <!-- /Phân trang -->
     </div>
   </section>
   <!-- /Listing-->

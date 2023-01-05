@@ -13,6 +13,20 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':status', $status, PDO::PARAM_STR);
 		$query->bindParam(':eid', $eid, PDO::PARAM_STR);
 		$query->execute();
+
+		$querynum = $dbh -> prepare("SELECT DISTINCT ve.quantity, bo.VehicleId FROM tblvehicles ve join tblbooking bo on bo.VehicleId = ve.id WHERE bo.id = :eid");
+		$querynum->bindParam(':eid',$eid, PDO::PARAM_STR);
+		$querynum->execute();
+		$resultsnum=$querynum->fetch(PDO::FETCH_OBJ);
+		$quantity = (int) $resultsnum -> quantity;
+		$veId = $resultsnum ->VehicleId;
+
+		$quantity_update = $quantity + 1;
+		$querynum1 = $dbh -> prepare("Update tblvehicles SET quantity = :quantity WHERE id =:veId");
+		$querynum1->bindParam(':quantity',$quantity_update, PDO::PARAM_STR);
+		$querynum1->bindParam(':veId',$veId, PDO::PARAM_STR);
+		$querynum1->execute();
+
 		echo "<script>alert('Đã hủy Danh sách đơn hàng thành công!');</script>";
 		echo "<script type='text/javascript'> document.location = 'canceled-bookings.php; </script>";
 	}
@@ -27,6 +41,32 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':aeid', $aeid, PDO::PARAM_STR);
 		$query->execute();
 		echo "<script>alert('Đã xác nhận Danh sách đơn hàng thành công');</script>";
+		echo "<script type='text/javascript'> document.location = 'confirmed-bookings.php'; </script>";
+	}
+
+	if (isset($_REQUEST['neid'])) {
+		$neid = intval($_GET['neid']);
+		$status = "3";
+		$sql = "UPDATE tblbooking SET Status=:status WHERE  id=:neid";
+		$query = $dbh->prepare($sql);
+		$query->bindParam(':status', $status, PDO::PARAM_STR);
+		$query->bindParam(':neid', $neid, PDO::PARAM_STR);
+		$query->execute();
+
+		$querynum = $dbh -> prepare("SELECT DISTINCT ve.quantity, bo.VehicleId FROM tblvehicles ve join tblbooking bo on bo.VehicleId = ve.id WHERE bo.id = :neid");
+		$querynum->bindParam(':neid',$neid, PDO::PARAM_STR);
+		$querynum->execute();
+		$resultsnum=$querynum->fetch(PDO::FETCH_OBJ);
+		$quantity = (int) $resultsnum -> quantity;
+		$veId = $resultsnum ->VehicleId;
+
+		$quantity_update = $quantity + 1;
+		$querynum1 = $dbh -> prepare("Update tblvehicles SET quantity = :quantity WHERE id =:veId");
+		$querynum1->bindParam(':quantity',$quantity_update, PDO::PARAM_STR);
+		$querynum1->bindParam(':veId',$veId, PDO::PARAM_STR);
+		$querynum1->execute();
+
+		echo "<script>alert('Đã hủy Danh sách đơn hàng thành công!');</script>";
 		echo "<script type='text/javascript'> document.location = 'confirmed-bookings.php'; </script>";
 	}
 ?>
@@ -118,8 +158,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 												$cnt = 1;
 												if ($query->rowCount() > 0) {
 													foreach ($results as $result) {				?>
-
-
 														<tr>
 															<th colspan="4" style="text-align:center;color:blue">Chi tiết người dùng</th>
 														</tr>
@@ -134,14 +172,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 															<td><?php echo htmlentities($result->ContactNo); ?></td>
 														</tr>
 														<tr>
-															<th>Đại chỉ</th>
-															<td><?php echo htmlentities($result->Address); ?></td>
-															<th>Thành phố</th>
-															<td><?php echo htmlentities($result->City); ?></td>
-														</tr>
-														<tr>
-															<th>Quốc gia</th>
-															<td colspan="3"><?php echo htmlentities($result->Country); ?></td>
+															<th>Địa chỉ</th>
+															<td colspan="3">
+																<?php 
+																	echo htmlentities($result->Address);
+																	echo " , ";
+																	echo htmlentities($result->City);
+																?>
+															</td>
 														</tr>
 
 														<tr>
@@ -149,25 +187,34 @@ if (strlen($_SESSION['alogin']) == 0) {
 														</tr>
 														<tr>
 															<th>Tên xe</th>
-															<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></td>
-															<th>Ngày đặt</th>
+															<td><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></td>
+															<th>Thời gian đặt</th>
 															<td><?php echo htmlentities($result->PostingDate); ?></td>
 														</tr>
 														<tr>
-															<th>Từ ngày</th>
+															<th>Thuê từ ngày</th>
 															<td><?php echo htmlentities($result->FromDate); ?></td>
-															<th>Đến ngày</th>
+															<th>Thuê đến ngày</th>
 															<td><?php echo htmlentities($result->ToDate); ?></td>
 														</tr>
 														<tr>
-															<th>Tổng số ngày</th>
+															<th>Tổng số ngày thuê</th>
 															<td><?php echo htmlentities($tdays = $result->totalnodays); ?></td>
-															<th>Thuê mỗi ngày</th>
-															<td><?php echo htmlentities($ppdays = $result->PricePerDay); ?></td>
+															<th>Giá thuê mỗi ngày</th>
+															<td><?php 
+																$ppdays = $result->PricePerDay; 
+																$tien = (int) $result->PricePerDay;
+																$bien = number_format($tien,0,",",".");
+																echo $bien." đ/ngày";
+															?></td>
 														</tr>
 														<tr>
-															<th colspan="3" style="text-align:center">Tổng</th>
-															<td><?php echo htmlentities($tdays * $ppdays); ?></td>
+															<th colspan="3" style="text-align:center; ">Tổng</th>
+															<td style = "color: red; font-size: 16px; font-weight: 700;"><?php 
+																$tien1 = (int) ($tdays * $ppdays);
+																$bien1 = number_format($tien1,0,",",".");
+																echo $bien1." đ/".$tdays." ngày";
+															?></td>
 														</tr>
 														<tr>
 															<th>Trạng thái đặt chỗ</th>
@@ -193,7 +240,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 																	<a href="bookig-details.php?eid=<?php echo htmlentities($result->id); ?>" onclick="return confirm('Bạn có muốn hủy lịch đặt')" class="btn btn-danger"> Hủy lịch đặt</a>
 																</td>
 															</tr>
-														<?php } ?>
+														<?php }if ($result->Status == 1){ ?>
+															<td style="text-align:center" colspan="4">
+																<a href="bookig-details.php?neid=<?php echo htmlentities($result->id); ?>" onclick="return confirm('Bạn có muốn cập nhật đã trả xe')" class="btn btn-primary"> Trả xe</a>
+															</td>
+														<?php }?>
 												<?php $cnt = $cnt + 1;
 													}
 												} ?>

@@ -23,7 +23,7 @@ if (strlen($_SESSION['login']) == 0) {
     $query->bindParam(':country', $country, PDO::PARAM_STR);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
     $query->execute();
-    $msg = "Profile Updated Successfully";
+    $msg = "Cập nhật trành công!";
   }
 
 ?>
@@ -162,9 +162,9 @@ if (strlen($_SESSION['login']) == 0) {
                         <label class="control-label">Địa chỉ của bạn</label>
                         <textarea class="form-control white_bg" name="address" rows="4"><?php echo htmlentities($result->Address); ?></textarea>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" style = "display: none;">
                         <label class="control-label">Quốc gia</label>
-                        <input class="form-control white_bg" id="country" name="country" value="<?php echo htmlentities($result->City); ?>" type="text">
+                        <input class="form-control white_bg" id="country" name="country" value="Việt Nam" type="hidden" >
                       </div>
                       <div class="form-group">
                         <label class="control-label">Thành phố</label>

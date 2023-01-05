@@ -13,6 +13,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$priceperday = $_POST['priceperday'];
 		$fueltype = $_POST['fueltype'];
 		$modelyear = $_POST['modelyear'];
+		$quantity = $_POST['quantity'];
 		$seatingcapacity = $_POST['seatingcapacity'];
 		$airconditioner = $_POST['airconditioner'];
 		$powerdoorlocks = $_POST['powerdoorlocks'];
@@ -28,7 +29,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$leatherseats = $_POST['leatherseats'];
 		$id = intval($_GET['id']);
 
-		$sql = "update tblvehicles set VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
+		$sql = "update tblvehicles set VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats, quantity = :quantity where id=:id ";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
 		$query->bindParam(':brand', $brand, PDO::PARAM_STR);
@@ -49,10 +50,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':centrallocking', $centrallocking, PDO::PARAM_STR);
 		$query->bindParam(':crashcensor', $crashcensor, PDO::PARAM_STR);
 		$query->bindParam(':leatherseats', $leatherseats, PDO::PARAM_STR);
+		$query->bindParam(':quantity', $quantity, PDO::PARAM_STR);
 		$query->bindParam(':id', $id, PDO::PARAM_STR);
 		$query->execute();
 
-		$msg = "Data updated successfully";
+		$msg = "Cập nhật thành công";
 	}
 
 
@@ -139,10 +141,22 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 													<form method="post" class="form-horizontal" enctype="multipart/form-data">
 														<div class="form-group">
-															<label class="col-sm-2 control-label">Tiêu đề xe<span style="color:red">*</span></label>
+															<label class="col-sm-2 control-label">Tên xe<span style="color:red">*</span></label>
 															<div class="col-sm-4">
 																<input type="text" name="vehicletitle" class="form-control" value="<?php echo htmlentities($result->VehiclesTitle) ?>" required>
 															</div>
+															
+														</div>
+
+														<div class="hr-dashed"></div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">Tổng quan<span style="color:red">*</span></label>
+															<div class="col-sm-10">
+																<textarea class="form-control" name="vehicalorcview" rows="3" required><?php echo htmlentities($result->VehiclesOverview); ?></textarea>
+															</div>
+														</div>
+
+														<div class="form-group">
 															<label class="col-sm-2 control-label">Chọn thương hiệu<span style="color:red">*</span></label>
 															<div class="col-sm-4">
 																<select class="selectpicker" name="brandname" required>
@@ -165,44 +179,40 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 																</select>
 															</div>
-														</div>
-
-														<div class="hr-dashed"></div>
-														<div class="form-group">
-															<label class="col-sm-2 control-label">Tổng quan<span style="color:red">*</span></label>
-															<div class="col-sm-10">
-																<textarea class="form-control" name="vehicalorcview" rows="3" required><?php echo htmlentities($result->VehiclesOverview); ?></textarea>
-															</div>
-														</div>
-
-														<div class="form-group">
-															<label class="col-sm-2 control-label">Giá mỗi ngày(đ)<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="text" name="priceperday" class="form-control" value="<?php echo htmlentities($result->PricePerDay); ?>" required>
-															</div>
+															
 															<label class="col-sm-2 control-label">Chọn nhiên liệu<span style="color:red">*</span></label>
 															<div class="col-sm-4">
 																<select class="selectpicker" name="fueltype" required>
 																	<option value="<?php echo htmlentities($result->FuelType); ?>"> <?php echo htmlentities($result->FuelType); ?> </option>
 
-																	<option value="Petrol">Xăng dầu</option>
-																	<option value="Diesel">Diesel</option>
-																	<option value="CNG">CNG</option>
+																	<option value="Petrol">Xăng</option>
+																	<option value="Diesel">Dầu</option>
+																	<option value="EV">Điện</option>
 																</select>
+															</div>
+															<label class="col-sm-2 control-label">Đời xe<span style="color:red">*</span></label>
+															<div class="col-sm-4">
+																<input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result->ModelYear); ?>" required>
 															</div>
 														</div>
 
 
 														<div class="form-group">
-															<label class="col-sm-2 control-label">Phiên bản xe<span style="color:red">*</span></label>
-															<div class="col-sm-4">
-																<input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result->ModelYear); ?>" required>
-															</div>
+															
 															<label class="col-sm-2 control-label">Chỗ ngồi<span style="color:red">*</span></label>
 															<div class="col-sm-4">
 																<input type="text" name="seatingcapacity" class="form-control" value="<?php echo htmlentities($result->SeatingCapacity); ?>" required>
 															</div>
+															<label class="col-sm-2 control-label">Số lượng xe<span style="color:red">*</span></label>
+															<div class="col-sm-4">
+																<input type="number" name="quantity" class="form-control" value="<?php echo htmlentities($result->quantity); ?>" required>
+															</div>
+															<label class="col-sm-2 control-label">Giá thuê mỗi ngày(đ)<span style="color:red">*</span></label>
+															<div class="col-sm-4">
+																<input type="text" name="priceperday" class="form-control" value="<?php echo htmlentities($result->PricePerDay); ?>" required>
+															</div>
 														</div>
+
 														<div class="hr-dashed"></div>
 														<div class="form-group">
 															<div class="col-sm-12">

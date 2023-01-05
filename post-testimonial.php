@@ -16,9 +16,9 @@ if (strlen($_SESSION['login']) == 0) {
     $query->execute();
     $lastInsertId = $dbh->lastInsertId();
     if ($lastInsertId) {
-      $msg = "Testimonail submitted successfully";
+      $msg = "Đã gửi thành công";
     } else {
-      $error = "Something went wrong. Please try again";
+      $error = "Đã xảy ra sự cố. Vui lòng thử lại";
     }
   }
 ?>

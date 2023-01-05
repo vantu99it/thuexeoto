@@ -7,7 +7,7 @@
 		<ul class="ts-profile-nav">
 			
 			<li class="ts-account">
-				<a href="#"><img src="img/ts-avatar.jpg" class="ts-avatar hidden-side" alt=""> Group 1 <i class="fa fa-angle-down hidden-side"></i></a>
+				<a href="#"><img src="../img/logo.jpg" class="ts-avatar hidden-side" alt=""> Admin <i class="fa fa-angle-down hidden-side"></i></a>
 				<ul>
 					<li><a href="change-password.php">Đổi mật khẩu</a></li>
 					<li><a href="logout.php">Đăng xuất</a></li>

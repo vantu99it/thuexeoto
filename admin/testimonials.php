@@ -14,7 +14,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':eid', $eid, PDO::PARAM_STR);
 		$query->execute();
 
-		$msg = "Testimonial Successfully Inacrive";
+		$msg = "Cập nhật thành công!";
 	}
 
 
@@ -28,7 +28,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':aeid', $aeid, PDO::PARAM_STR);
 		$query->execute();
 
-		$msg = "Testimonial Successfully Active";
+		$msg = "Đã hoạt động";
 	}
 
 
@@ -102,7 +102,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 							<div class="panel panel-default">
 								<div class="panel-heading">Người dùng đánh giá</div>
 								<div class="panel-body">
-									<?php if ($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
+									<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr>

@@ -129,11 +129,11 @@ if (isset($_POST['send'])) {
                   <input type="text" name="contactno" class="form-control white_bg" id="phonenumber" required maxlength="10" pattern="[0-9]+">
                 </div>
                 <div class="form-group">
-                  <label class="control-label">Tin nhắn <span>*</span></label>
+                  <label class="control-label">Lời nhắn <span>*</span></label>
                   <textarea class="form-control white_bg" name="message" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                  <button class="btn" type="submit" name="send" type="submit">Gửi tin nhắn <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+                  <button class="btn" type="submit" name="send" type="submit">Gửi <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                 </div>
               </form>
             </div>

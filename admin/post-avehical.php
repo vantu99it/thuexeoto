@@ -13,6 +13,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$priceperday = $_POST['priceperday'];
 		$fueltype = $_POST['fueltype'];
 		$modelyear = $_POST['modelyear'];
+		$quantity = $_POST['quantity'];
 		$seatingcapacity = $_POST['seatingcapacity'];
 		$vimage1 = $_FILES["img1"]["name"];
 		$vimage2 = $_FILES["img2"]["name"];
@@ -37,7 +38,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		move_uploaded_file($_FILES["img4"]["tmp_name"], "img/vehicleimages/" . $_FILES["img4"]["name"]);
 		move_uploaded_file($_FILES["img5"]["tmp_name"], "img/vehicleimages/" . $_FILES["img5"]["name"]);
 
-		$sql = "INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:vehicletitle,:brand,:vehicleoverview,:priceperday,:fueltype,:modelyear,:seatingcapacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
+		$sql = "INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats,quantity) VALUES(:vehicletitle,:brand,:vehicleoverview,:priceperday,:fueltype,:modelyear,:seatingcapacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats,:quantity)";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
 		$query->bindParam(':brand', $brand, PDO::PARAM_STR);
@@ -63,12 +64,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':centrallocking', $centrallocking, PDO::PARAM_STR);
 		$query->bindParam(':crashcensor', $crashcensor, PDO::PARAM_STR);
 		$query->bindParam(':leatherseats', $leatherseats, PDO::PARAM_STR);
+		$query->bindParam(':quantity', $quantity, PDO::PARAM_STR);
 		$query->execute();
 		$lastInsertId = $dbh->lastInsertId();
 		if ($lastInsertId) {
-			$msg = "Vehicle posted successfully";
+			$msg = "Đăng xe thành công";
 		} else {
-			$error = "Something went wrong. Please try again";
+			$error = "Đã xảy ra sự cố. Vui lòng thử lại";
 		}
 	}
 
@@ -135,7 +137,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 					<div class="row">
 						<div class="col-md-12">
 
-							<h2 class="page-title">Đăng một phương tiện</h2>
+							<h2 class="page-title">Đăng xe</h2>
 
 							<div class="row">
 								<div class="col-md-12">
@@ -146,10 +148,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<div class="panel-body">
 											<form method="post" class="form-horizontal" enctype="multipart/form-data">
 												<div class="form-group">
-													<label class="col-sm-2 control-label">Tiêu đề phương tiện<span style="color:red">*</span></label>
-													<div class="col-sm-4">
+													<label class="col-sm-2 control-label">Tên xe<span style="color:red">*</span></label>
+													<div class="col-sm-6">
 														<input type="text" name="vehicletitle" class="form-control" required>
 													</div>
+												</div>
+
+												<div class="hr-dashed"></div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Thông tin chi tiết<span style="color:red">*</span></label>
+													<div class="col-sm-10">
+														<textarea class="form-control" name="vehicalorcview" rows="3" required></textarea>
+													</div>
+												</div>
+
+												<div class="form-group">
 													<label class="col-sm-2 control-label">Chọn thương hiệu<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<select class="selectpicker" name="brandname" required>
@@ -168,42 +181,37 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 														</select>
 													</div>
-												</div>
-
-												<div class="hr-dashed"></div>
-												<div class="form-group">
-													<label class="col-sm-2 control-label">Tổng quan phương tiện<span style="color:red">*</span></label>
-													<div class="col-sm-10">
-														<textarea class="form-control" name="vehicalorcview" rows="3" required></textarea>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label class="col-sm-2 control-label">Giá mỗi ngày(đ)<span style="color:red">*</span></label>
-													<div class="col-sm-4">
-														<input type="text" name="priceperday" class="form-control" required>
-													</div>
+													
 													<label class="col-sm-2 control-label">Chọn nhiên liệu<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<select class="selectpicker" name="fueltype" required>
 															<option value=""> Chọn </option>
-
-															<option value="Petrol">Xăng dầu</option>
-															<option value="Diesel">Diesel</option>
-															<option value="CNG">CNG</option>
+															<option value="Petrol">Xăng</option>
+															<option value="Diesel">Dầu</option>
+															<option value="EV">Điện</option>
 														</select>
 													</div>
-												</div>
-
-
-												<div class="form-group">
 													<label class="col-sm-2 control-label">Đời xe<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<input type="text" name="modelyear" class="form-control" required>
 													</div>
-													<label class="col-sm-2 control-label">Chỗ ngồi<span style="color:red">*</span></label>
+													
+												</div>
+
+
+												<div class="form-group">
+													
+													<label class="col-sm-2 control-label">Số chỗ ngồi<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<input type="text" name="seatingcapacity" class="form-control" required>
+													</div>
+													<label class="col-sm-2 control-label">Số lượng xe<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="number" name="quantity" class="form-control" required>
+													</div>
+													<label class="col-sm-2 control-label">Giá thuê mỗi ngày(đ)<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="text" name="priceperday" class="form-control" required>
 													</div>
 												</div>
 												<div class="hr-dashed"></div>
@@ -216,7 +224,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 
 
-												<div class="form-group">
+												<div class="form-group" style="display: flex; justify-content: space-between;">
 													<div class="col-sm-4">
 														Hình 1 <span style="color:red">*</span><input type="file" name="img1" required>
 													</div>
@@ -229,7 +237,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 
 
-												<div class="form-group">
+												<div class="form-group" style="display: flex; justify-content: space-between;">
 													<div class="col-sm-4">
 														Hình 4<span style="color:red">*</span><input type="file" name="img4" required>
 													</div>
@@ -322,15 +330,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="col-sm-3">
 													<div class="checkbox checkbox-inline">
 														<input type="checkbox" id="crashcensor" name="crashcensor" value="1">
-														<label for="crashcensor"> Cảm biến sự cố </label>
+														<label for="crashcensor">Cảm biến sự cố </label>
 													</div>
 												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="leatherseats" name="leatherseats" value="1">
-														<label for="leatherseats"> Ghế da </label>
-													</div>
+
+												<div class="checkbox checkbox-inline">
+													<input type="checkbox" id="leatherseats" name="leatherseats" value="1">
+													<label for="leatherseats">Ghế da </label>
 												</div>
+
 											</div>
 
 

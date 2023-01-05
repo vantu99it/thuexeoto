@@ -100,8 +100,8 @@ if (strlen($_SESSION['login']) == 0) {
         <h5><?php echo htmlentities($result->FullName); ?></h5>
         <p><?php echo htmlentities($result->Address); ?><br>
           <?php echo htmlentities($result->City); ?>&nbsp;<?php echo htmlentities($result->Country);
-                                                        }
-                                                      } ?></p>
+            }
+          } ?></p>
       </div>
     </div> -->
             <div class="row">
@@ -115,7 +115,7 @@ if (strlen($_SESSION['login']) == 0) {
                       <ul class="vehicle_listing">
                         <?php
                         $useremail = $_SESSION['login'];
-                        $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail";
+                        $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.id as idbooking,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail ORDER BY tblbooking.id DESC";
                         $query = $dbh->prepare($sql);
                         $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
                         $query->execute();
@@ -132,7 +132,7 @@ if (strlen($_SESSION['login']) == 0) {
                                 <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>"> <?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></a></h6>
                                 <p><b>Từ </b> <?php echo htmlentities($result->FromDate); ?> <b>Đến </b> <?php echo htmlentities($result->ToDate); ?></p>
                                 <div style="float: left">
-                                  <p><b>Tin nhắn:</b> <?php echo htmlentities($result->message); ?> </p>
+                                  <p><b>Lời nhắn:</b> <?php echo htmlentities($result->message); ?> </p>
                                 </div>
                               </div>
                               <?php if ($result->Status == 1) { ?>
@@ -145,8 +145,10 @@ if (strlen($_SESSION['login']) == 0) {
                                   <div class="clearfix"></div>
                                 </div>
 
-
-
+                              <?php } else if ($result->Status == 3) { ?>
+                              <div class="vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Đã trả xe</a>
+                                <div class="clearfix"></div>
+                              </div>
                               <?php } else { ?>
                                 <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Chưa xác nhận</a>
                                   <div class="clearfix"></div>

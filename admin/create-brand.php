@@ -13,9 +13,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->execute();
 		$lastInsertId = $dbh->lastInsertId();
 		if ($lastInsertId) {
-			$msg = "Brand Created successfully";
+			$msg = "Tạo thương hiệu thành công";
 		} else {
-			$error = "Something went wrong. Please try again";
+			$error = "Đã xảy ra sự cố. Vui lòng thử lại";
 		}
 	}
 ?>

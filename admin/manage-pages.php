@@ -13,7 +13,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':pagetype', $pagetype, PDO::PARAM_STR);
 		$query->bindParam(':pagedetails', $pagedetails, PDO::PARAM_STR);
 		$query->execute();
-		$msg = "Page data updated  successfully";
+		$msg = "Cập nhật thành công";
 	}
 
 ?>

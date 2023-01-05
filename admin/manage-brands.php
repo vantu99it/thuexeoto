@@ -11,11 +11,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':id', $id, PDO::PARAM_STR);
 		$query->execute();
-		$msg = "Page data updated  successfully";
+		$msg = "Cập nhật thành công!";
 	}
-
-
-
 ?>
 
 	<!doctype html>
@@ -86,7 +83,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 							<div class="panel panel-default">
 								<div class="panel-heading">Danh sách thương hiệu</div>
 								<div class="panel-body">
-									<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
+									<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr>
@@ -94,7 +91,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Tên thương hiệu</th>
 												<th>Ngày tạo</th>
 												<th>Ngày cập nhật</th>
-
 												<th>Hoạt động</th>
 											</tr>
 										</thead>

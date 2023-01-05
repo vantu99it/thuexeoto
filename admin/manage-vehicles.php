@@ -12,7 +12,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':delid', $delid, PDO::PARAM_STR);
 		$query->execute();
-		$msg = "Vehicle  record deleted successfully";
+		$msg = "Cập nhật thành công!";
 	}
 
 

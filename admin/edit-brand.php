@@ -15,7 +15,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->execute();
 		$lastInsertId = $dbh->lastInsertId();
 
-		$msg = "Brand Update successfully";
+		$msg = "Cập nhật thành công!";
 	}
 ?>
 
@@ -89,7 +89,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<div class="panel-heading">Cập nhật thương hiệu</div>
 										<div class="panel-body">
 											<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-												<?php if ($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
+												<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 												<?php
 												$id = $_GET['id'];
 												$ret = "select * from tblbrands where id=:id";
