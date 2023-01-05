@@ -201,7 +201,7 @@ $_SESSION['brndid']=$result->bid;
                       <?php if($result->AirConditioner==1)
                       {
                       ?>
-                                            <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
                       <?php } else { ?> 
                         <td><i class="fa fa-close" aria-hidden="true"></i></td>
                         <?php } ?> </tr>
@@ -215,7 +215,7 @@ $_SESSION['brndid']=$result->bid;
                       <?php } else {?>
                       <td><i class="fa fa-close" aria-hidden="true"></i></td>
                       <?php } ?>
-                                          </tr>
+                      </tr>
 
                       <tr>
                       <td>Tay lái trợ lực</td>
@@ -227,7 +227,7 @@ $_SESSION['brndid']=$result->bid;
                       <td><i class="fa fa-close" aria-hidden="true"></i></td>
                       <?php } ?>
                       </tr>
-                                        
+                      
 
                       <tr>
 
