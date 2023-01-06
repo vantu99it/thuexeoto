@@ -120,7 +120,19 @@ error_reporting(0);
                   <ul>
                     <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?> Ghế ngồi</li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?> Mô hình</li>
-                    <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
+                    <li><i class="fa fa-car" aria-hidden="true"></i>
+                      <?php 
+                        if($result->FuelType == "Petrol"){
+                          echo "Xăng";
+                        }
+                        if($result->FuelType == "Diesel"){
+                          echo "Dầu";
+                        }
+                        if($result->FuelType == "EV"){
+                          echo "Điện";
+                        }
+                      ?>
+                    </li>
                   </ul>
                   <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn">Xem chi tiết <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 </div>

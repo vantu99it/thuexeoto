@@ -5,17 +5,23 @@ include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
+	if (isset($_REQUEST['id'])) {
+		$id = intval($_GET['id']);
+		$sql = "update tblcontactusquery set status = 1 where id = :id";
+		$query = $dbh->prepare($sql);
+		$query->bindParam(':id', $id, PDO::PARAM_STR);
+		$query->execute();
+		$msg = "Cập nhật thành công!";
+	}
 
 	if (isset($_REQUEST['del'])) {
 		$delid = intval($_GET['del']);
-		$sql = "delete from tblvehicles  WHERE  id=:delid";
+		$sql = "delete from tblcontactusquery WHERE  id=:delid";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':delid', $delid, PDO::PARAM_STR);
 		$query->execute();
 		$msg = "Xóa thành công!";
 	}
-
-
 ?>
 
 	<!doctype html>
@@ -80,43 +86,44 @@ if (strlen($_SESSION['alogin']) == 0) {
 					<div class="row">
 						<div class="col-md-12">
 
-							<h2 class="page-title">Quản lý phương tiện</h2>
+							<h2 class="page-title">Quản lý liên hệ</h2>
 
 							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
-								<div class="panel-heading">Chi tiết phương tiện</div>
+								<div class="panel-heading">Các liên hệ mới cần giải quyết</div>
 								<div class="panel-body">
 									<?php if ($error) { ?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr>
 												<th>STT</th>
-												<th>Tên xe</th>
-												<th>Thương hiệu </th>
-												<th>Giá mỗi ngày</th>
-												<th>Loại nhiên liệu</th>
-												<th>Phiên bản xe</th>
+												<th>Tên người gửi</th>
+												<th>Email</th>
+												<th>Số điện thoại</th>
+												<th>Lời nhắn</th>
+												<th>Thời gian gửi</th>
+												<th>Trạng thái</th>
 												<th>Hoạt động</th>
 											</tr>
 										</thead>
 
-
-										<?php $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
+										<?php $sql = "SELECT * from tblcontactusquery where status = 1";
 										$query = $dbh->prepare($sql);
 										$query->execute();
 										$results = $query->fetchAll(PDO::FETCH_OBJ);
 										$cnt = 1;
 										if ($query->rowCount() > 0) {
-											foreach ($results as $result) {				?>
+											foreach ($results as $result) {	?>
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
-													<td><?php echo htmlentities($result->VehiclesTitle); ?></td>
-													<td><?php echo htmlentities($result->BrandName); ?></td>
-													<td><?php echo htmlentities($result->PricePerDay); ?></td>
-													<td><?php echo htmlentities($result->FuelType); ?></td>
-													<td><?php echo htmlentities($result->ModelYear); ?></td>
-													<td><a href="edit-vehicle.php?id=<?php echo $result->id; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-														<a href="manage-vehicles.php?del=<?php echo $result->id; ?>" onclick="return confirm('Bạn muốn xóa bài đăng này?');"><i class="fa fa-close"></i></a>
+													<td><?php echo htmlentities($result->name); ?></td>
+													<td><?php echo htmlentities($result->EmailId); ?></td>
+													<td><?php echo htmlentities($result->ContactNumber); ?></td>
+													<td><?php echo htmlentities($result->Message); ?></td>
+													<td><?php echo htmlentities($result->PostingDate); ?></td>
+													<td style = "text-align: center; color: #1da521;">Đã xử lý</td>
+													<td style = "text-align: center;">
+														<a href="new-contact.php?del=<?php echo $result->id; ?>" onclick="return confirm('Bạn muốn xóa liên hệ này?');"><i class="fa fa-close"></i></a>
 													</td>
 												</tr>
 										<?php $cnt = $cnt + 1;
@@ -131,6 +138,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 				</div>
 			</div>
 		</div>
+
 		<!-- Scripts -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap-select.min.js"></script>
