@@ -29,7 +29,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="author" content="">
 		<meta name="theme-color" content="#3e454c">
 
-		<title>Trang quản trị| Quản lý người dùng </title>
+		<title>Trang quản trị | Quản lý người dùng </title>
 
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
