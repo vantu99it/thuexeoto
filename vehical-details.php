@@ -3,56 +3,35 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 
-
+$vhid = $_GET['vhid'];
+//  $querynum = $dbh -> prepare("SELECT *  FROM tblvehicles WHERE id =:vhid");
+//     $querynum->bindParam(':vhid',$vhid, PDO::PARAM_STR);
+//     $querynum->execute();
+//     $resultsnum = $querynum->fetch(PDO::FETCH_OBJ);
+//     $quantity = (int) $resultsnum -> quantity;
+//     var_dump($resultsnum -> quantity); die();
 if(isset($_POST['submit']))
 {
 $fromdate=$_POST['fromdate'];
 $todate=$_POST['todate']; 
+$quantity=$_POST['quantity']; 
 $message=$_POST['message'];
 $useremail=$_SESSION['login'];
 $status=0;
-$vhid=$_GET['vhid'];
 $bookingno=mt_rand(100000000, 999999999);
 
-$ret="SELECT * FROM tblbooking where (:fromdate BETWEEN date(FromDate) and date(ToDate) || :todate BETWEEN date(FromDate) and date(ToDate) || date(FromDate) BETWEEN :fromdate and :todate) and VehicleId=:vhid";
-$query1 = $dbh -> prepare($ret);
-$query1->bindParam(':vhid',$vhid, PDO::PARAM_STR);
-$query1->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
-$query1->bindParam(':todate',$todate,PDO::PARAM_STR);
-$query1->execute();
-$results1=$query1->fetchAll(PDO::FETCH_OBJ);
-
-$querynum = $dbh -> prepare("SELECT quantity  FROM tblvehicles WHERE id =:vhid");
-$querynum->bindParam(':vhid',$vhid, PDO::PARAM_STR);
-$querynum->execute();
-$resultsnum=$querynum->fetch(PDO::FETCH_OBJ);
-$quantity = (int) $resultsnum -> quantity;
-
-$check = 0;
-if($query1->rowCount() > 0 && $quantity > 0 || $query1->rowCount() == 0 && $quantity > 0){
-  $check = 1;
-}elseif($query1->rowCount() > 0 && $quantity < 1 || $query1->rowCount() == 0 && $quantity < 1){
-  $check = 0;
-}
-
-if($check == 1)
-{
-  $sql="INSERT INTO tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES(:useremail,:vhid,:fromdate,:todate,:message,:status)";
+  $sql="INSERT INTO tblbooking(BookingNumber,userEmail,VehicleId,FromDate,ToDate,quantity,message,Status) VALUES(:BookingNumber,:useremail,:vhid,:fromdate,:todate,:quantity,:message,:status)";
   $query = $dbh->prepare($sql);
+  $query->bindParam(':BookingNumber',$bookingno,PDO::PARAM_STR);
   $query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
   $query->bindParam(':vhid',$vhid,PDO::PARAM_STR);
   $query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
   $query->bindParam(':todate',$todate,PDO::PARAM_STR);
+  $query->bindParam(':quantity',$quantity,PDO::PARAM_STR);
   $query->bindParam(':message',$message,PDO::PARAM_STR);
   $query->bindParam(':status',$status,PDO::PARAM_STR);
   $query->execute();
   $lastInsertId = $dbh->lastInsertId();
-
-  $quantity_update = $quantity - 1;
-  $querynum1 = $dbh -> prepare("Update tblvehicles SET quantity = :quantity WHERE id =:vhid");
-  $querynum1->bindParam(':quantity',$quantity_update, PDO::PARAM_STR);
-  $querynum1->bindParam(':vhid',$vhid, PDO::PARAM_STR);
-  $querynum1->execute();
 
   if($lastInsertId)
   {
@@ -64,15 +43,25 @@ if($check == 1)
     echo "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại');</script>";
     echo "<script type='text/javascript'> document.location = 'car-listing.php'; </script>";
   } 
-}  else{
- echo "<script>alert('Xe này đã hết vào thời gian bạn đặt! Vui lòng chọn loại xe khác!');</script>"; 
- echo "<script type='text/javascript'> document.location = 'car-listing.php'; </script>";
-}
-
 }
 
 ?>
 
+<script>
+  function checkQuanrityCar() {
+    var vhId = <?php echo json_encode($vhid); ?> ;
+    var fromdate = $("#fromdate").val();
+    var todate = $("#todate").val();
+    var quantity= $("#quantity").val();
+    jQuery.ajax({
+      url: "check-quantity-car.php?fromdate="+ fromdate + "&todate="+ todate+ "&quantity=" + quantity + "&vhId=" + vhId,
+      success: function(data) {
+        $("#user-availability-status").html(data);
+      },
+      error: function() {}
+    });
+  }
+</script>
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -389,20 +378,25 @@ $_SESSION['brndid']=$result->bid;
           <form method="post">
             <div class="form-group">
               <label>Từ ngày:</label>
-              <input type="date" class="form-control" name="fromdate" placeholder="From Date" required>
+              <input type="date" class="form-control" name="fromdate" id="fromdate"  placeholder="Từ ngày" required>
             </div>
             <div class="form-group">
               <label>Đến ngày:</label>
-              <input type="date" class="form-control" name="todate" placeholder="To Date" required>
+              <input type="date" class="form-control" name="todate" id="todate" placeholder="Tới ngày" required>
             </div>
             <div class="form-group">
-            <label>Lời nhắn: </label>
+              <label>Số lượng xe:</label>
+              <input type="number" class="form-control" name="quantity" id="quantity" onBlur="checkQuanrityCar()" required>
+              <p id="user-availability-status" style="font-size:12px;margin-top: 5px;"></ơ>
+            </div>
+            <div class="form-group">
+              <label>Lời nhắn: </label>
               <textarea rows="4" class="form-control" name="message" placeholder="Lời nhắn"></textarea>
             </div>
           <?php if($_SESSION['login'])
               {?>
               <div class="form-group">
-                <input type="submit" class="btn"  name="submit" value="Đặt ngay">
+                <input type="submit" class="btn"  name="submit" id="submit" value="Đặt ngay">
               </div>
               <?php } else { ?>
               <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Đăng nhập để đặt lịch</a>

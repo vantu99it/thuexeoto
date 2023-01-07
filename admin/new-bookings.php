@@ -80,7 +80,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>STT</th>
 												<th>Tên</th>
 												<th>Số đơn hàng</th>
-												<th>Phương tiện</th>
+												<th>Tên xe</th>
 												<th>Từ ngày</th>
 												<th>Đến ngày</th>
 												<th>Trạng thái</th>
@@ -103,7 +103,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<tr>
 															<td><?php echo htmlentities($cnt); ?></td>
 															<td><?php echo htmlentities($result->FullName); ?></td>
-															<td><?php echo "#".htmlentities($result->idbooking); ?></td>
+															<td><?php echo "#".htmlentities($result->BookingNumber); ?></td>
 															<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></td>
 															<td><?php echo htmlentities($result->FromDate); ?></td>
 															<td><?php echo htmlentities($result->ToDate); ?></td>
@@ -118,11 +118,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 																?></td>
 															<td><?php echo htmlentities($result->PostingDate); ?></td>
 															<td>
-
-
-																<a href="bookig-details.php?bid=<?php echo htmlentities($result->id); ?>"> View</a>
+																<a href="bookig-details.php?bid=<?php echo htmlentities($result->id); ?>"> Xem</a>
 															</td>
-
 														</tr>
 												<?php $cnt = $cnt + 1;
 													}

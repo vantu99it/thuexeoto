@@ -86,7 +86,7 @@ error_reporting(0);
               $results = $query->fetchAll(PDO::FETCH_OBJ);
               $cnt = $query->rowCount();
               ?>
-              <p><span><?php echo htmlentities($cnt); ?> Danh sách được tìm thấy so với tìm kiếm</span></p>
+              <p><span><?php echo htmlentities($cnt); ?> danh sách được tìm thấy thấy với từ khóa "<?php echo htmlentities($searchdata); ?>"</span></p>
             </div>
           </div>
 
@@ -104,7 +104,13 @@ where tblvehicles.VehiclesTitle LIKE '%".$searchdata."%' || tblbrands.BrandName 
                 </div>
                 <div class="product-listing-content">
                   <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></a></h5>
-                  <p class="list-price"><?php echo htmlentities($result->PricePerDay); ?> đ/Ngày</p>
+                  <p class="list-price">
+                    <?php 
+                      $tien = (int) $result->PricePerDay;
+                      $bien = number_format($tien,0,",",".");
+                      echo $bien." đ/ngày";
+                    ?> 
+                  </p>
                   <ul>
                     <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?> Ghế ngồi</li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?> Mô hình</li>
@@ -120,6 +126,7 @@ where tblvehicles.VehiclesTitle LIKE '%".$searchdata."%' || tblbrands.BrandName 
                       }
                     ?></li>
                   </ul>
+                  <p?><?php echo substr($result->VehiclesOverview, 0, 150);?>...</p>
                   <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn">Xem chi tiết<span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 </div>
               </div>

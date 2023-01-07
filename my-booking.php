@@ -115,7 +115,7 @@ if (strlen($_SESSION['login']) == 0) {
                       <ul class="vehicle_listing">
                         <?php
                         $useremail = $_SESSION['login'];
-                        $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.id as idbooking,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail ORDER BY tblbooking.id DESC";
+                        $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.id as idbooking,tblbooking.FromDate,tblbooking.ToDate, tblbooking.quantity,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail ORDER BY tblbooking.id DESC";
                         $query = $dbh->prepare($sql);
                         $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
                         $query->execute();
@@ -125,7 +125,7 @@ if (strlen($_SESSION['login']) == 0) {
                           foreach ($results as $result) {  ?>
 
                             <li>
-                              <h4 style="color:red">Đơn hàng <?php echo htmlentities($result->BookingNumber); ?></h4>
+                              <h4 style="color:red">Đơn hàng #<?php echo htmlentities($result->BookingNumber); ?></h4>
                               <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" alt="image"></a> </div>
                               <div class="vehicle_title">
 
@@ -164,6 +164,7 @@ if (strlen($_SESSION['login']) == 0) {
                                 <th>Từ ngày</th>
                                 <th>Đến ngày</th>
                                 <th>Tổng số ngày</th>
+                                <th>Số xe thuê</th>
                                 <th>Thuê / Ngày</th>
                               </tr>
                               <tr>
@@ -171,11 +172,25 @@ if (strlen($_SESSION['login']) == 0) {
                                 <td><?php echo htmlentities($result->FromDate); ?></td>
                                 <td> <?php echo htmlentities($result->ToDate); ?></td>
                                 <td><?php echo htmlentities($tds = $result->totaldays); ?></td>
-                                <td> <?php echo htmlentities($ppd = $result->PricePerDay); ?></td>
+                                <td><?php echo htmlentities($qtt = $result->quantity); ?></td>
+                                <td> 
+                                  <?php 
+                                    $ppd = $result->PricePerDay;
+                                    $tien = (int) $ppd;
+                                    $bien = number_format($tien,0,",",".");
+                                    echo $bien." đ/ngày";
+                                  ?>
+                                </td>
                               </tr>
                               <tr>
                                 <th colspan="4" style="text-align:center;"> Tổng cộng</th>
-                                <th><?php echo htmlentities($tds * $ppd); ?></th>
+                                <th colspan="2">
+                                  <?php 
+                                    $tien = (int) ($tds * $ppd * $qtt);
+                                    $bien = number_format($tien,0,",",".");
+                                    echo $bien." đ";
+                                  ?>
+                                </th>
                               </tr>
                             </table>
                             <hr />

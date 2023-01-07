@@ -25,7 +25,6 @@ if (isset($_POST['signup'])) {
 
 <script>
   function checkAvailability() {
-
     jQuery.ajax({
       url: "check_availability.php",
       data: 'emailid=' + $("#emailid").val(),

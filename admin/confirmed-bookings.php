@@ -79,7 +79,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>STT</th>
 												<th>Tên</th>
 												<th>Số đơn hàng</th>
-												<th>Phương tiện</th>
+												<th>Tên xe</th>
 												<th>Từ ngày</th>
 												<th>Đến ngày</th>
 												<th>Trạng thái</th>
@@ -95,24 +95,24 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$results = $query->fetchAll(PDO::FETCH_OBJ);
 											$cnt = 1;
 											if ($query->rowCount() > 0) {
-												foreach ($results as $result) {				?>
+												foreach ($results as $result) {	?>
 													<tr>
 														<td><?php echo htmlentities($cnt); ?></td>
 														<td><?php echo htmlentities($result->FullName); ?></td>
-														<td><?php echo "#".htmlentities($result->idbooking); ?></td>
+														<td><?php echo "#".htmlentities($result->BookingNumber); ?></td>
 														<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></td>
 														<td><?php echo htmlentities($result->FromDate); ?></td>
 														<td><?php echo htmlentities($result->ToDate); ?></td>
 														<td><?php
-															if ($result->Status == 0) {
-																echo htmlentities('Chưa xác nhận');
-															} else if ($result->Status == 1) {
-																echo htmlentities('Đang cho thuê');
-															} else if ($result->Status == 3) {
-																echo htmlentities('Đã trả xe');
-															} else {
-																echo htmlentities('Đã hủy');
-															}
+															if ($result->Status == 0) {?>
+																<p>Chưa xác nhận</p>
+															<?php } else if ($result->Status == 1) { ?>
+																<p style = "color: #1da521">Đang cho thuê</p>
+															<?php } else if ($result->Status == 3) { ?>
+																<p>Đã trả xe</p>
+															<?php } else { ?>
+																<p>Đã hủy</p>
+															<?php }
 															?></td>
 														<td><?php echo htmlentities($result->PostingDate); ?></td>
 														<td>

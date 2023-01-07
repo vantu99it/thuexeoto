@@ -83,7 +83,7 @@ error_reporting(0);
             <li role="presentation" class="active"><a href="#resentnewcar" role="tab" data-toggle="tab">DANH SÁCH XE</a></li>
           </ul>
         </div>
-        <!-- Recently Listed New Cars -->
+        <!--  New Cars -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="resentnewcar">
 
@@ -91,7 +91,6 @@ error_reporting(0);
             if ($query1->rowCount() > 0) {
               foreach ($results1 as $result) {
             ?>
-
                 <div class="col-list-3">
                   <div class="recent-car-list">
                     <div class="car-info-box"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="image"></a>
@@ -117,24 +116,20 @@ error_reporting(0);
                       <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"> <?php echo htmlentities($result->VehiclesTitle); ?></a></h6>
                       <span class="price">
                         <?php 
-                        // echo htmlentities($result->PricePerDay); 
                           $tien = (int) $result->PricePerDay;
-                            $bien = number_format($tien,0,",",".");
-                            echo $bien." đ/ngày";
+                          $bien = number_format($tien,0,",",".");
+                          echo $bien." đ/ngày";
                         ?></span>
                     </div>
                     <div class="inventory_info_m">
-                      <p><?php echo substr($result->VehiclesOverview, 0, 70); ?></p>
+                      <p><?php echo substr($result->VehiclesOverview, 0, 120); ?>...</p>
                     </div>
                   </div>
                 </div>
             <?php }
-            } ?>
-              
+            } ?>  
           </div>
         </div>
-        
-        
       </div>
         <!-- phân trang -->
         <?php include './includes/page-division.php'; ?>

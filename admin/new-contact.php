@@ -107,7 +107,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</tr>
 										</thead>
 
-
 										<?php $sql = "SELECT * from tblcontactusquery where status = 0";
 										$query = $dbh->prepare($sql);
 										$query->execute();

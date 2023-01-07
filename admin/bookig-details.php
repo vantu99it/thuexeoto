@@ -5,6 +5,7 @@ include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
+	// Huyr
 	if (isset($_REQUEST['eid'])) {
 		$eid = intval($_GET['eid']);
 		$status = "2";
@@ -14,23 +15,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':eid', $eid, PDO::PARAM_STR);
 		$query->execute();
 
-		$querynum = $dbh -> prepare("SELECT DISTINCT ve.quantity, bo.VehicleId FROM tblvehicles ve join tblbooking bo on bo.VehicleId = ve.id WHERE bo.id = :eid");
-		$querynum->bindParam(':eid',$eid, PDO::PARAM_STR);
-		$querynum->execute();
-		$resultsnum=$querynum->fetch(PDO::FETCH_OBJ);
-		$quantity = (int) $resultsnum -> quantity;
-		$veId = $resultsnum ->VehicleId;
-
-		$quantity_update = $quantity + 1;
-		$querynum1 = $dbh -> prepare("Update tblvehicles SET quantity = :quantity WHERE id =:veId");
-		$querynum1->bindParam(':quantity',$quantity_update, PDO::PARAM_STR);
-		$querynum1->bindParam(':veId',$veId, PDO::PARAM_STR);
-		$querynum1->execute();
-
-		echo "<script>alert('Đã hủy Danh sách đơn hàng thành công!');</script>";
+		echo "<script>alert('Đã hủy đơn hàng thành công!');</script>";
 		echo "<script type='text/javascript'> document.location = 'canceled-bookings.php; </script>";
 	}
-
+// xác nhận
 	if (isset($_REQUEST['aeid'])) {
 		$aeid = intval($_GET['aeid']);
 		$status = 1;
@@ -40,10 +28,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':status', $status, PDO::PARAM_STR);
 		$query->bindParam(':aeid', $aeid, PDO::PARAM_STR);
 		$query->execute();
-		echo "<script>alert('Đã xác nhận Danh sách đơn hàng thành công');</script>";
+		echo "<script>alert('Đã xác nhận đơn hàng thành công');</script>";
 		echo "<script type='text/javascript'> document.location = 'confirmed-bookings.php'; </script>";
 	}
-
+// Trả
 	if (isset($_REQUEST['neid'])) {
 		$neid = intval($_GET['neid']);
 		$status = "3";
@@ -53,20 +41,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->bindParam(':neid', $neid, PDO::PARAM_STR);
 		$query->execute();
 
-		$querynum = $dbh -> prepare("SELECT DISTINCT ve.quantity, bo.VehicleId FROM tblvehicles ve join tblbooking bo on bo.VehicleId = ve.id WHERE bo.id = :neid");
-		$querynum->bindParam(':neid',$neid, PDO::PARAM_STR);
-		$querynum->execute();
-		$resultsnum=$querynum->fetch(PDO::FETCH_OBJ);
-		$quantity = (int) $resultsnum -> quantity;
-		$veId = $resultsnum ->VehicleId;
-
-		$quantity_update = $quantity + 1;
-		$querynum1 = $dbh -> prepare("Update tblvehicles SET quantity = :quantity WHERE id =:veId");
-		$querynum1->bindParam(':quantity',$quantity_update, PDO::PARAM_STR);
-		$querynum1->bindParam(':veId',$veId, PDO::PARAM_STR);
-		$querynum1->execute();
-
-		echo "<script>alert('Đã hủy Danh sách đơn hàng thành công!');</script>";
+		echo "<script>alert('Thành công!');</script>";
 		echo "<script type='text/javascript'> document.location = 'confirmed-bookings.php'; </script>";
 	}
 ?>
@@ -147,9 +122,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 												<?php
 												$bid = intval($_GET['bid']);
-												$sql = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber,
-												DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblvehicles.PricePerDay
-									  			from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.id=:bid";
+												$sql = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber,tblbooking.LastUpdationDate,tblbooking.quantity, DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblvehicles.PricePerDay from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.id=:bid";
 												$query = $dbh->prepare($sql);
 												$query->bindParam(':bid', $bid, PDO::PARAM_STR);
 												$query->execute();
@@ -162,7 +135,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														</tr>
 														<tr>
 															<th>Tên</th>
-															<td><?php echo htmlentities($result->FullName); ?></td>
+															<td colspan="3"><?php echo htmlentities($result->FullName); ?></td>
 														</tr>
 														<tr>
 															<th>Email</th>
@@ -199,21 +172,27 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<tr>
 															<th>Tổng số ngày thuê</th>
 															<td><?php echo htmlentities($tdays = $result->totalnodays); ?></td>
+															<th>Số lượng xe thuê</th>
+															<td><?php echo htmlentities($qtt = $result->quantity); ?></td>
+														</tr>
+														<tr>
 															<th>Giá thuê mỗi ngày</th>
 															<td><?php 
 																$ppdays = $result->PricePerDay; 
 																$tien = (int) $result->PricePerDay;
 																$bien = number_format($tien,0,",",".");
 																echo $bien." đ/ngày";
+															?>
+															</td>
+															<th>Tổng</th>
+															<td style = "color: red; font-size: 16px; font-weight: 700; text-align:center;"><?php 
+																$tien1 = (int) ($tdays * $ppdays * $qtt);
+																$bien1 = number_format($tien1,0,",",".");
+																echo $bien1." đ/".$tdays." ngày/".$qtt." xe";
 															?></td>
 														</tr>
-														<tr>
-															<th colspan="3" style="text-align:center; ">Tổng</th>
-															<td style = "color: red; font-size: 16px; font-weight: 700;"><?php 
-																$tien1 = (int) ($tdays * $ppdays);
-																$bien1 = number_format($tien1,0,",",".");
-																echo $bien1." đ/".$tdays." ngày";
-															?></td>
+														<tr >
+															<td></td>
 														</tr>
 														<tr>
 															<th>Trạng thái đặt chỗ</th>
