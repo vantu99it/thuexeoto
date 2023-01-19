@@ -158,10 +158,7 @@ $_SESSION['brndid']=$result->bid;
         <div class="main_features">
           <ul>
           
-            <li> <i class="fa fa-calendar" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->ModelYear);?></h5>
-              <p>Năm sản xuất</p>
-            </li>
+            
             <li> <i class="fa fa-cogs" aria-hidden="true"></i>
               <h5><?php 
                 if($result->FuelType == "Petrol"){
@@ -176,7 +173,10 @@ $_SESSION['brndid']=$result->bid;
               ?></h5>
               <p>Loại nhiên liệu</p>
             </li>
-       
+            <li> <i class="fa fa-calendar" aria-hidden="true"></i>
+              <h5><?php echo htmlentities($result->ModelYear);?></h5>
+              <p>Năm sản xuất</p>
+            </li>
             <li> <i class="fa fa-user-plus" aria-hidden="true"></i>
               <h5><?php echo htmlentities($result->SeatingCapacity);?></h5>
               <p>Ghế ngồi</p>
@@ -387,7 +387,7 @@ $_SESSION['brndid']=$result->bid;
             <div class="form-group">
               <label>Số lượng xe:</label>
               <input type="number" class="form-control" name="quantity" id="quantity" onBlur="checkQuanrityCar()" required>
-              <p id="user-availability-status" style="font-size:12px;margin-top: 5px;"></ơ>
+              <p id="user-availability-status" style="font-size:12px;margin-top: 5px;"></p>
             </div>
             <div class="form-group">
               <label>Lời nhắn: </label>
@@ -396,11 +396,10 @@ $_SESSION['brndid']=$result->bid;
           <?php if($_SESSION['login'])
               {?>
               <div class="form-group">
-                <input type="submit" class="btn"  name="submit" id="submit" value="Đặt ngay">
+                <input type="submit" class="btn"  name="submit" id="submits" value="Đặt ngay">
               </div>
               <?php } else { ?>
               <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Đăng nhập để đặt lịch</a>
-
               <?php } ?>
           </form>
         </div>
@@ -440,8 +439,7 @@ $_SESSION['brndid']=$result->bid;
 
 <!--/Register-Form --> 
 
-<!--Forgot-password-Form -->
-<?php include('includes/forgotpassword.php');?>
+
 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script> 
@@ -450,6 +448,12 @@ $_SESSION['brndid']=$result->bid;
 <script src="assets/js/bootstrap-slider.min.js"></script> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function () {
+      fromdate.min = new Date().toISOString().split("T")[0];
+      todate.min = new Date().toISOString().split("T")[0];
+  });
+</script>
 
 </body>
 </html>

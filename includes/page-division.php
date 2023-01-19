@@ -31,6 +31,6 @@
         if ($current_page < $totalPages){
         $end_page = $totalPages;
         ?>
-        <a class="page-item" href="?per_page=<?=$item_per_page?>&page=<?=$end_page?>">Trang cuối</a>
+        <a class="page-item" href="?per_page=<?=$item_per_page?>&page=<?=$end_page?>">Last</a>
     <?php } ?>
 </div>

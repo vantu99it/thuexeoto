@@ -34,9 +34,9 @@ if(!empty($_GET["fromdate"]) && !empty($_GET["todate"]) && !empty($_GET["quantit
 
     if($quantity_check < $quantity_input){
         echo "<span style='color:red'> Số lượng xe trong thời gian trên chỉ còn ".$quantity_check." cái.</span>";
-		echo "<script>$('#submit').prop('disabled',true);</script>";
+		echo "<script>$('#submits').prop('disabled',true);</script>";
     }else{
         echo "<span style='color:red'> Tổng số tiền bạn cần thanh toán là:  ".$total." VNĐ cho ".$quantity_input." xe và ".$date." ngày.</span>";
-        echo "<script>$('#submit').prop('disabled',false);</script>";
+        echo "<script>$('#submits').prop('disabled',false);</script>";
     }
 }

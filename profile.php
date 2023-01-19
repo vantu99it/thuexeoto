@@ -146,13 +146,14 @@ if (strlen($_SESSION['login']) == 0) {
                         <label class="control-label">Tên đầy dủ</label>
                         <input class="form-control white_bg" name="fullname" value="<?php echo htmlentities($result->FullName); ?>" id="fullname" type="text" required>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label">Địa chỉ email</label>
-                        <input class="form-control white_bg" value="<?php echo htmlentities($result->EmailId); ?>" name="emailid" id="email" type="email" required readonly>
-                      </div>
+
                       <div class="form-group">
                         <label class="control-label">Số điện thoại</label>
                         <input class="form-control white_bg" name="mobilenumber" value="<?php echo htmlentities($result->ContactNo); ?>" id="phone-number" type="text" required>
+                      </div>
+                                            <div class="form-group">
+                        <label class="control-label">Địa chỉ email</label>
+                        <input class="form-control white_bg" value="<?php echo htmlentities($result->EmailId); ?>" name="emailid" id="email" type="email" required readonly>
                       </div>
                       <div class="form-group">
                         <label class="control-label">Ngày sinh&nbsp;(dd/mm/yyyy)</label>
@@ -174,7 +175,8 @@ if (strlen($_SESSION['login']) == 0) {
               } ?>
 
                   <div class="form-group">
-                    <button type="submit" name="updateprofile" class="btn">Lưu thay đổi <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+                    <button type="submit" name="
+                    le" class="btn">Lưu thay đổi <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                   </div>
                     </form>
                   </div>

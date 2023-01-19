@@ -7,7 +7,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
 	if (isset($_GET['del'])) {
 		$id = $_GET['del'];
-		$sql = "delete from tblbrands  WHERE id=:id";
+		$sql = "delete from tblbrands  WHERE id=:id ";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':id', $id, PDO::PARAM_STR);
 		$query->execute();
@@ -100,7 +100,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$results = $query->fetchAll(PDO::FETCH_OBJ);
 											$cnt = 1;
 											if ($query->rowCount() > 0) {
-												foreach ($results as $result) {				?>
+												foreach ($results as $result) {	?>
 													<tr>
 														<td><?php echo htmlentities($cnt); ?></td>
 														<td><?php echo htmlentities($result->BrandName); ?></td>

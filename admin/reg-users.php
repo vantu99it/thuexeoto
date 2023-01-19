@@ -91,6 +91,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr>
+												<th>Hàng động</th>
 												<th>STT</th>
 												<th> Tên</th>
 												<th>Email </th>
@@ -100,12 +101,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Thành phố</th>
 												<th>Ngày đăng kí</th>
 												<th>Trạng thái</th>
-												<th>Hàng động</th>
+												
 											</tr>
 										</thead>
 
 										<tbody>
-											<?php $sql = "SELECT * from  tblusers ";
+											<?php $sql = "SELECT * from  tblusers Order by FullName ASC ";
 											$query = $dbh->prepare($sql);
 											$query->execute();
 											$results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -113,6 +114,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 											if ($query->rowCount() > 0) {
 												foreach ($results as $result) {				?>
 													<tr>
+														<td style = "text-align: center;">
+															<?php if($result->status == 0){ ?>
+																<a href="reg-users.php?block=<?php echo $result->id; ?>"onclick="return confirm('Xác nhận tiếp tục hoạt động!');"><i class="fa fa-check"></i></a>&nbsp;&nbsp
+															<?php }else{ ?>
+																<a href="reg-users.php?hide=<?php echo $result->id; ?>"onclick="return confirm('Xác nhận ngừng hoạt động!');"><i class="fa fa-close"></i></a>&nbsp;&nbsp
+															<?php } ?> 
+													</td>
 														<td><?php echo htmlentities($cnt); ?></td>
 														<td><?php echo htmlentities($result->FullName); ?></td>
 														<td><?php echo htmlentities($result->EmailId); ?></td>
@@ -123,18 +131,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<td><?php echo htmlentities($result->RegDate); ?></td>
 														<td>
 															<?php if($result->status == 0){ ?>
-																<p style = "color: red;">Ngừng hoạt động</p>
+																<p style = "color: #1da521;">Ngừng hoạt động</p>
 															<?php }else{ ?>
-																<p style = "color: #1da521;">Đang hoạt động</p>
+																<p style = "color: red;">Đang hoạt động</p>
 															<?php } ?>
 														</td>
-														<td style = "text-align: center;">
-															<?php if($result->status == 0){ ?>
-																<a href="reg-users.php?block=<?php echo $result->id; ?>"onclick="return confirm('Xác nhận tiếp tục hoạt động!');"><i class="fa fa-check"></i></a>&nbsp;&nbsp
-															<?php }else{ ?>
-																<a href="reg-users.php?hide=<?php echo $result->id; ?>"onclick="return confirm('Xác nhận ngừng hoạt động!');"><i class="fa fa-close"></i></a>&nbsp;&nbsp
-															<?php } ?> 
-													</td>
+														
 													</tr>
 											<?php $cnt = $cnt + 1;
 												}
